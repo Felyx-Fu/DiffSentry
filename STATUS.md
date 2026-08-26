@@ -6,7 +6,7 @@ P7 — Release & Open Source
 
 ## Current task
 
-AG-719 — Run cross-platform CI matrix
+AG-720 — Prepare v0.1.0 release candidate
 
 ## Completed tasks
 
@@ -5073,8 +5073,86 @@ Execution state:
   ordinary hosted-CI fixes were pushed to `main`; hosted attempts 1 through 3
   above are the recorded failure evidence. The next cross-platform fix is
   being validated before the next push.
-- AG-720 remains gated until one identifiable revision passes all three hosted
-  runners and the evidence is recorded here.
+- AG-720 was gated until one identifiable revision passed all three hosted
+  runners and the evidence was recorded below.
+
+### AG-719 DONE
+
+Summary:
+- Completed the authorized cross-platform CI matrix for the canonical
+  `Felyx-Fu/AgentGuard` repository on `main`.
+- The same source revision passed the complete configured hosted quality gate
+  on Ubuntu, Windows, and macOS with Node 24.
+- Repaired only ordinary hosted-runner issues: Actions-provided environment
+  variables in missing-input tests, Windows checkout line endings, macOS
+  `/private` temporary paths, and Windows 8.3 temporary paths.
+- No architecture boundary, security boundary, v0.1 scope, publishing, tag,
+  release, or NPM_TOKEN boundary was changed or bypassed.
+
+Final hosted evidence:
+- Canonical repository: `https://github.com/Felyx-Fu/AgentGuard`
+- Branch: `main`
+- Workflow: `CI`
+- Tested commit: `ea32fac187ddf239e590208136c744460a286f45`
+- Run: `32935751675` —
+  `https://github.com/Felyx-Fu/AgentGuard/actions/runs/32935751675`
+- `ubuntu-latest`: PASS — job
+  `https://github.com/Felyx-Fu/AgentGuard/actions/runs/32935751675/job/98076534330`;
+  frozen-lockfile install, lint, typecheck, test, and build all passed.
+- `windows-latest`: PASS — job
+  `https://github.com/Felyx-Fu/AgentGuard/actions/runs/32935751675/job/98076534547`;
+  frozen-lockfile install, lint, typecheck, test, and build all passed.
+- `macos-latest`: PASS — job
+  `https://github.com/Felyx-Fu/AgentGuard/actions/runs/32935751675/job/98076534445`;
+  frozen-lockfile install, lint, typecheck, test, and build all passed.
+- Node setup requested `24` on every job; hosted environment details were
+  Ubuntu `v24.19.0`, Windows `v24.19.0`, and macOS `v24.18.0`.
+- Hosted workflow conclusion: PASS. Architecture and package-boundary steps
+  are not configured in the current `ci.yml`; local final checks passed
+  architecture validation, while the existing package-boundary command exited
+  0 and explicitly reported its deep validation as deferred.
+
+Failure and fix history:
+- Run `32932409223`, commit
+  `acb1b1906d02c049d70305586419aa00bd5c0a10`: Ubuntu/macOS tests were
+  accidentally affected by runner-provided `GITHUB_EVENT_NAME`,
+  `GITHUB_OUTPUT`, and `GITHUB_STEP_SUMMARY`; Windows Biome rejected CRLF
+  checkout content in 252 files. Fixed with explicit empty test inputs and
+  repository LF attributes in commit `bd44de77008a36575718ee6d7e9219331aba7e61`.
+- Run `32932782331`, commit
+  `bd44de77008a36575718ee6d7e9219331aba7e61`: Ubuntu and Windows passed;
+  macOS exposed `/var` versus `/private/var` temporary-directory spelling.
+  The first canonical-path assertion was pushed in commit
+  `ea4d835244191477da8507aa8e2f749eef1e925f`.
+- Run `32935591063`, commit
+  `ea4d835244191477da8507aa8e2f749eef1e925f`: Ubuntu and macOS passed;
+  Windows exposed a valid `RUNNER~1` 8.3 temporary-path spelling. Commit
+  `ea32fac187ddf239e590208136c744460a286f45` canonicalized both sides with
+  `realpath`; the final run above passed all platforms.
+
+Files:
+- `.github/workflows/ci.yml`
+- `.gitattributes`
+- `apps/github-action/src/event-context.test.ts`
+- `apps/github-action/src/outputs.test.ts`
+- `apps/github-action/src/step-summary.test.ts`
+- `tests/integration/runtime/runtime-adapters.test.ts`
+- `STATUS.md`
+
+Local final validation:
+- `pnpm lint`: PASS — Biome checked 252 files.
+- `pnpm typecheck`: PASS — configured Action typecheck completed.
+- `pnpm test`: PASS — 97 files, 276 tests.
+- `pnpm build`: PASS — all 8 Turbo build tasks completed.
+- `node scripts/check-architecture.ts`: PASS — contracts 10 and core 75
+  source files checked.
+- `node scripts/check-package-boundaries.ts`: PASS as the existing explicit
+  placeholder; deep public-import validation remains deferred.
+
+Evidence boundary:
+- AG-719 is complete. AG-720 is now the current task and is limited to
+  release-candidate validation; no publish, tag, GitHub Release, release
+  workflow, release PR, or formal readiness claim is authorized.
 
 ## Notes
 
