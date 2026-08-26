@@ -5415,3 +5415,80 @@ npm and release boundaries:
 ## Notes
 
 This file is updated by Codex after every completed or blocked task.
+
+### RC-CLI-001 — Complete the existing v0.1 CLI executable integration
+
+Review date: `2026-08-26`
+
+Authoritative remediation decision:
+- RC-CLI-001 is a restricted completion of the already-approved v0.1 CLI
+  executable integration. It is not a new command, rule, scoring model,
+  network feature, LLM feature, architecture change, or scope expansion.
+- The exact prior acceptance gap is recorded here as required:
+  “Final packed consumer audit discovered that the P5 executable integration acceptance was not actually satisfied.”
+- The gap was in existing AG-508/package-local CLI logic: the lower-level
+  command implementations existed but the top-level dispatcher did not route
+  `check`, `init`, or `explain`. AG-522's old E2E exercised lower-level logic
+  and manually assembled a report rather than the executable. AG-523's
+  one-command verification gap therefore remained real despite the historical
+  P5 completion record.
+- This remediation preserves the existing core-first architecture, security
+  boundaries, deterministic Risk Model, no-network/no-LLM policy, and all
+  publication boundaries.
+
+Implementation in progress:
+- `diffsentry check` now dispatches through repository detection, Git
+  selection, existing project/change/verification/rule flow, existing risk and
+  verdict calculation, report rendering, and the existing exit mapping.
+- `diffsentry init` delegates to the existing no-overwrite initializer;
+  `diffsentry explain <rule-id>` delegates to existing built-in rule metadata.
+  Help/version remain stable, supported check options are parsed with clear
+  usage errors, and unexpected internal failures retain exit code `3`.
+- Existing core project-detection, change-assembly, and verification helpers
+  are intentionally exported as public composition APIs and documented in the
+  core README; core still contains no Node runtime imports or CLI dispatch.
+- The real executable E2E starts built `packages/cli/dist/main.js` in a
+  temporary Git repository and asserts `FAIL`, risk `50/100`, redacted secret
+  evidence, empty stderr, and process exit `2`. It also verifies explicit
+  `--config` can disable that finding and produce `PASS`/`0`.
+
+Local validation before hosted evidence:
+- `pnpm install --frozen-lockfile`: PASS — lockfile unchanged.
+- `pnpm lint`: PASS — Biome checked 253 files.
+- `pnpm typecheck`: PASS — all 8 configured package tasks passed.
+- `pnpm test`: PASS — 98 files, 284 tests.
+- `pnpm build`: PASS — all 8 Turbo build tasks completed.
+- `node scripts/check-architecture.ts`: PASS — contracts 10 and core 75
+  source files checked.
+- `node scripts/check-package-boundaries.ts`: PASS only as the existing
+  placeholder; it explicitly reports that deep public-import validation is
+  deferred. No deep boundary-validation claim is made.
+- The current development host is Node `v25.9.0`, outside the unchanged
+  `>=24 <25` policy; this is not supported-runtime evidence.
+
+Artifact and consumer validation:
+- Fresh v5 artifacts are under
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-artifacts-20260826-v5`.
+  All seven public tarballs were inspected for allowlisted contents, packed
+  metadata, root exports, declarations, CLI bin mapping, and materialized
+  internal dependency ranges. No `workspace:` dependency remained; no
+  `src`, test source, fixtures, coverage, or development TypeScript config
+  entered the tarballs.
+- Fresh external consumer v3 is under
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-consumer-20260826-v3`.
+  All seven packed artifacts installed with npm; representative ESM roots,
+  strict TypeScript declarations, risk/rule APIs, and the packed CLI passed.
+  Packed executable `help`, `version`, and secret-fixture `check` passed with
+  the expected nonzero verdict exit; `npm exec --offline --no -- diffsentry
+  --help` also passed through the packed bin mapping.
+
+Hosted evidence state:
+- A fresh three-platform Node 24 hosted run is still required for the final
+  RC after this source revision. Previous AG-719/AG-720 runs are historical
+  and are not reused for RC-CLI-001 completion.
+
+Release boundary:
+- Until the fresh hosted matrix and final artifact rerun are recorded, the
+  final RC remains blocked. No npm publish, Changesets publish, NPM_TOKEN use,
+  tag, GitHub Release, release workflow, release PR, Marketplace release, or
+  `RELEASED`/release-ready claim was made.

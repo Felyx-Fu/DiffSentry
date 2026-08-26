@@ -8,7 +8,10 @@ import {
   type ResolvedVerificationCommand,
   resolveVerificationCommand,
 } from "./command-resolver.js";
-import type { PlannedVerification } from "./verification-planner.js";
+import type {
+  PlannedVerification,
+  VerificationIntentId,
+} from "./verification-planner.js";
 
 export type VerificationExecutionStatus =
   | "passed"
@@ -22,7 +25,7 @@ export interface VerificationOutputSummary {
 }
 
 export interface VerificationExecutionResult {
-  readonly id: string;
+  readonly id: VerificationIntentId;
   readonly status: VerificationExecutionStatus;
   readonly command: ResolvedVerificationCommand | null;
   readonly durationMs: number;

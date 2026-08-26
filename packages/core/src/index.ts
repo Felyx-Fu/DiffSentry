@@ -29,6 +29,31 @@ export type {
 } from "./application/severity-override.js";
 export { applySeverityOverrides } from "./application/severity-override.js";
 export type {
+  AssembledChangedFile,
+  AssembledChangeSet,
+} from "./domain/change/change-set.js";
+export { assembleChangeSet } from "./domain/change/change-set.js";
+export { classifyFileCategory } from "./domain/change/file-category-classifier.js";
+export type {
+  PackageManagerResolution,
+  PackageManagerResolutionStatus,
+  PackageManagerSignals,
+  SupportedPackageManager,
+} from "./domain/project/package-manager-resolution.js";
+export {
+  detectPackageManager,
+  resolvePackageManager,
+} from "./domain/project/package-manager-resolution.js";
+export type { KnownPackageScripts } from "./domain/project/package-scripts.js";
+export { readKnownPackageScripts } from "./domain/project/package-scripts.js";
+export { isNodeProjectCandidate } from "./domain/project/project-candidate.js";
+export type {
+  AssembledProjectContext,
+  ProjectDetectionFacts,
+} from "./domain/project/project-context.js";
+export { assembleProjectContext } from "./domain/project/project-context.js";
+export { isTypeScriptProject } from "./domain/project/typescript-project.js";
+export type {
   RiskFindingInput,
   RiskScoreInput,
 } from "./domain/risk/risk-score.js";
@@ -59,3 +84,19 @@ export {
   getVerificationPenalty,
   VERIFICATION_PENALTIES,
 } from "./domain/risk/verification-penalty.js";
+export type {
+  VerificationExecutionOptions,
+  VerificationExecutionRequest,
+  VerificationExecutionResult,
+  VerificationExecutionStatus,
+  VerificationOutputSummary,
+} from "./domain/verification/verification-coordinator.js";
+export { VerificationExecutionCoordinator } from "./domain/verification/verification-coordinator.js";
+export type {
+  PlannedVerification,
+  PlannedVerificationSource,
+  VerificationIntentId,
+  VerificationPlannerInput,
+  VerificationPlannerToggles,
+} from "./domain/verification/verification-planner.js";
+export { planVerifications } from "./domain/verification/verification-planner.js";

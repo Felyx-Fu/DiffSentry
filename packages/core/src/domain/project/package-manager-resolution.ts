@@ -1,3 +1,9 @@
+import type { FileSystemPort } from "../../ports/file-system.js";
+import { isBunProject } from "./package-manager-bun.js";
+import { isNpmProject } from "./package-manager-npm.js";
+import { isPnpmProject } from "./package-manager-pnpm.js";
+import { isYarnProject } from "./package-manager-yarn.js";
+
 export type SupportedPackageManager = "pnpm" | "npm" | "yarn" | "bun";
 
 export interface PackageManagerSignals {
@@ -53,4 +59,19 @@ export function resolvePackageManager(
     manager: null,
     candidates,
   };
+}
+
+/** Detects the supported package manager using the existing filesystem ports. */
+export async function detectPackageManager(
+  fileSystem: FileSystemPort,
+  startDirectory: string,
+): Promise<PackageManagerResolution> {
+  const [pnpm, npm, yarn, bun] = await Promise.all([
+    isPnpmProject(fileSystem, startDirectory),
+    isNpmProject(fileSystem, startDirectory),
+    isYarnProject(fileSystem, startDirectory),
+    isBunProject(fileSystem, startDirectory),
+  ]);
+
+  return resolvePackageManager({ bun, npm, pnpm, yarn });
 }

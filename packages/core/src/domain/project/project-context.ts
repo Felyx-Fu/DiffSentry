@@ -4,7 +4,7 @@ import type {
   SupportedPackageManager,
 } from "./package-manager-resolution.js";
 
-interface AssembledProjectContext {
+export interface AssembledProjectContext {
   readonly repositoryRoot: string;
   readonly ecosystem: "node" | "unknown";
   readonly packageManager: SupportedPackageManager;

@@ -6,16 +6,21 @@ export type {
   CheckCommandSuccess,
   CheckDiffSelection,
   CheckFormat,
+  CheckPipelineNotRepository,
+  CheckPipelineOutcome,
+  CheckPipelineSuccess,
 } from "./commands/check.js";
 export {
   CHECK_CI_DEFAULT_FORMAT,
   CHECK_FORMATS,
   CheckCommandConfigError,
   CheckCommandFormatError,
+  CheckCommandProjectError,
   parseCheckFormat,
   renderCheckReport,
   resolveCheckFormat,
   runCheckCommand,
+  runCheckPipeline,
 } from "./commands/check.js";
 export type {
   ExplainCommandOptions,
@@ -44,5 +49,5 @@ export type {
   CliVerdictOutcome,
 } from "./exit-codes.js";
 export { CLI_EXIT_CODES, mapCliExitCode } from "./exit-codes.js";
-export type { CliOutput } from "./main.js";
+export type { CliOutput, CliRunOptions } from "./main.js";
 export { CLI_HELP, CLI_VERSION, runCli } from "./main.js";
