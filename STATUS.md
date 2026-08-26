@@ -5035,11 +5035,28 @@ Hosted attempt 1:
   missing-input tests pass explicit empty values; no production behavior or
   quality gate was weakened.
 
+Hosted attempt 2:
+- Tested commit: `bd44de77008a36575718ee6d7e9219331aba7e61`
+- Run: `32932782331` —
+  `https://github.com/Felyx-Fu/AgentGuard/actions/runs/32932782331`
+- `ubuntu-latest`: PASS — install, lint, typecheck, test, and build passed.
+- `windows-latest`: PASS — install, lint, typecheck, test, and build passed.
+- `macos-latest`: FAIL at Test only — install, lint, and typecheck passed;
+  build was skipped after the test failure.
+- macOS failure: `tests/integration/runtime/runtime-adapters.test.ts`
+  compared the temporary fixture's `/var/...` spelling with the child
+  process's canonical `/private/var/...` working directory. The runtime
+  process itself exited successfully; the assertion was platform-sensitive.
+- The next smallest fix compares the process output with
+  `realpath(fixture.directory)` and is being validated locally before the
+  next authorized push.
+
 Execution state:
 - AG-719 remains resumed and the current task remains AG-719.
-- The authorized canonical repository was created and the baseline source was
-  pushed to `main`; the first hosted run above is the recorded failure
-  evidence. The cross-platform fix is being validated before the next push.
+- The authorized canonical repository was created and the source plus one
+  ordinary hosted-CI fix were pushed to `main`; hosted attempts 1 and 2 above
+  are the recorded failure evidence. The next cross-platform fix is being
+  validated before the next push.
 - AG-720 remains gated until one identifiable revision passes all three hosted
   runners and the evidence is recorded here.
 
