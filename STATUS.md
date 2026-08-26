@@ -5615,3 +5615,51 @@ GITHUB RELEASE: PUBLISHED
 
 STATUS: RELEASED
 ```
+
+### SEC-REL-001 — npm Trusted Publishing migration
+
+Date: 2026-08-26
+
+Scope:
+- Migrate future npm publication from the long-lived `NPM_TOKEN` path to npm
+  Trusted Publishing through GitHub Actions OIDC.
+- Preserve the released v0.1.0 product, package metadata, versions, Risk Model,
+  CLI behavior, architecture, `v0.1.0` tag, and GitHub Release.
+
+Implementation:
+- The seven public packages are configured for the `Felyx-Fu/DiffSentry`
+  trusted publisher with workflow filename `release.yml` and allowed action
+  `npm publish`.
+- `.github/workflows/release.yml` now grants `id-token: write` only to the
+  release job, retains the existing Changesets permissions and release guards,
+  removes the publication-time `NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}`
+  reference, and does not add another npm token.
+- The workflow no longer asks `actions/setup-node` to create npm registry auth
+  configuration. It keeps Node 24 and checks that the available npm CLI is at
+  least `11.5.1` before the Changesets publish step.
+- `create-github-releases: false` and `push-git-tags: false` remain unchanged.
+- Release security details are recorded in
+  `docs/release/release-security.md`.
+
+Token transition:
+- v0.1.0 was originally bootstrapped using the temporary npm `NPM_TOKEN`.
+- The existing GitHub secret may remain temporarily for emergency rollback;
+  its value was not accessed, deleted, or revoked, and production release
+  workflow code no longer references it.
+
+Validation boundary:
+- Full OIDC publication validation is intentionally pending until the next
+  legitimate release performs a real OIDC-backed npm publish. This task does
+  not execute the release workflow and does not publish, tag, or create a
+  GitHub Release.
+- Local static validation: PASS — release workflow required/forbidden-text
+  assertions, npm minimum check, and `git diff --check` passed. The local npm
+  version was `11.12.1`, satisfying the `11.5.1` minimum.
+- `pnpm lint`: PASS — Biome checked 253 files.
+- `pnpm typecheck`: PASS — all 8 Turbo package tasks passed.
+- `pnpm test`: PASS — 98 files, 284 tests passed.
+- `pnpm build`: PASS — all 8 Turbo build tasks passed.
+- These local gates ran on Node `v25.9.0`, outside the unchanged `>=24 <25`
+  policy; the release workflow remains pinned to Node 24 and its hosted npm
+  version gate is the relevant publication-environment check.
+- Hosted CI evidence will be recorded after the hardening commit is pushed.
