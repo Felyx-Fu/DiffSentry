@@ -5684,3 +5684,74 @@ Hosted CI evidence:
   source-level remediation was required.
 - The `Release` workflow was not dispatched for this commit; no npm publish,
   package version, tag, or GitHub Release was created.
+
+### DiffSentry Launch Pack — READY
+
+Date: 2026-08-26
+
+Launch deliverables:
+- `README.md`: READY — first screen now leads with the frozen positioning,
+  `Verify the diff. Trust the evidence.`, the public npm command, and the
+  verified redacted `FAIL` / `50/100` terminal output.
+- `README.zh-CN.md`: READY — Chinese first screen is independently written and
+  contains the same real command, output shape, differentiation, and v0.1
+  limits.
+- `docs/launch/demo-script.md`: READY — repeatable 15–25 second synthetic
+  secret-exposure recording plan with POSIX and PowerShell setup instructions.
+- `docs/launch/x-launch.md`: READY — sharp, technical, and build-in-public
+  variants with canonical links and limited hashtags.
+- `docs/launch/reddit-launch.md`: READY — transparent technical-community copy
+  with motivation, tradeoffs, limitations, and feedback prompt.
+- `docs/launch/hn-launch.md`: READY — concise Show HN title and body with no
+  unsupported claims.
+- `docs/launch/zh-launch.md`: READY — V2EX, 掘金/知乎, and GitHub Chinese copy.
+- `docs/launch/github-repository.md`: READY — description and topic
+  recommendations with applied-state notes.
+
+GitHub launch metadata:
+- Canonical repository: `https://github.com/Felyx-Fu/DiffSentry`
+- Description applied:
+  `Deterministic verification for AI-generated code changes. Verify the diff. Trust the evidence.`
+- Topics applied and verified: `ai`, `ai-coding`, `ci`, `code-quality`,
+  `code-review`, `developer-tools`, `git`, `security`, `static-analysis`,
+  `supply-chain-security`, `typescript`.
+- Repository remains public with default branch `main`.
+
+Validation:
+- Public npm `@felyx-fu/diffsentry@0.1.0 --version`: PASS — `0.1.0`.
+- Public npm `@felyx-fu/diffsentry@0.1.0 --help`: PASS — command surface matches
+  the documented CLI.
+- Public npm `check` on the existing synthetic Git fixture: PASS as a demo
+  evidence run — `FAIL`, `50/100`, one redacted secret finding, and child
+  process exit code `2`.
+- Local Markdown link check: PASS — 28 relative links checked.
+- Launch copy command/positioning/old-name assertions: PASS.
+- GitHub metadata consistency check: PASS.
+- `pnpm lint`: PASS — Biome checked 253 files.
+- `pnpm test`: PASS — 98 files, 284 tests passed.
+
+Boundary:
+- Product source, tests, architecture, Risk Model, CLI semantics, package
+  names, package versions, release workflow authentication, and the `v0.1.0`
+  tag/release were not changed.
+- No npm publication, version bump, tag, GitHub Release, or v0.2 development
+  was performed.
+
+Final launch state:
+
+```text
+DiffSentry Launch Pack
+
+README: READY
+README.zh-CN: READY
+Demo script: READY
+X launch copy: READY
+Reddit launch copy: READY
+HN launch copy: READY
+Chinese launch copy: READY
+GitHub description/topics: READY
+
+PRODUCT CODE: UNCHANGED
+VERSION: UNCHANGED
+RELEASE: v0.1.0 remains current
+```

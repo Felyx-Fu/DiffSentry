@@ -1,35 +1,32 @@
 # DiffSentry
 
-Deterministic, local-first verification for code changes, with an emphasis on
-evidence from AI-generated changes.
+**Verify the diff. Trust the evidence.**
 
-> DiffSentry v0.1.0 is released. This README describes the verified source,
-> published npm packages, and released CLI behavior.
+Deterministic verification for AI-generated code changes.
 
-## Problem
+DiffSentry runs objective checks and deterministic rules against a Git change,
+collects evidence with matched secret-like values redacted, calculates a
+reproducible `RiskScore`, and reports `PASS`, `REVIEW`, or `FAIL`.
 
-Code review needs more than a diff summary. DiffSentry is designed to answer
-four concrete questions:
+It complements AI-assisted development by covering the part that benefits from
+deterministic verification. No LLM judging another LLM. No cloud service is
+required for the core CLI.
 
-1. What changed?
-2. Which objective checks can be run?
-3. What evidence indicates risk?
-4. Should the change pass, require review, or fail?
+[![npm version](https://img.shields.io/npm/v/%40felyx-fu%2Fdiffsentry?logo=npm)](https://www.npmjs.com/package/@felyx-fu/diffsentry)
+[![CI](https://github.com/Felyx-Fu/DiffSentry/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Felyx-Fu/DiffSentry/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/Felyx-Fu/DiffSentry)](https://github.com/Felyx-Fu/DiffSentry/blob/main/LICENSE)
+[![Release](https://img.shields.io/github/v/release/Felyx-Fu/DiffSentry)](https://github.com/Felyx-Fu/DiffSentry/releases/tag/v0.1.0)
 
-It keeps the decision local and explainable: Git changes, project signals,
-verification results, rule findings, evidence locations, and a deterministic
-risk verdict are represented as structured data.
+## Try it in one command
 
-## Demo
+From a Git repository with Node.js 24 installed:
 
-The repository contains a deterministic Git fixture flow under `tests/e2e`.
-It creates a temporary repository, applies the existing secret-exposure
-fixture, redacts the matched value, calculates the v0.1 risk score, renders the
-report, and maps the `FAIL` verdict to the CLI exit code `2`.
+```bash
+npx @felyx-fu/diffsentry check
+```
 
-The same report model is rendered as terminal, JSON, and GitHub-friendly
-Markdown output. The deterministic fixture test asserts this terminal-renderer
-shape:
+The v0.1.0 CLI produces a real, redacted terminal report like this for the
+verified synthetic secret-exposure fixture:
 
 ```text
 DiffSentry 0.1.0
@@ -46,117 +43,144 @@ Findings:
 Verifications: none
 ```
 
-This is a rendered report sample from the package-local fixture; the quick-start
-command also checks the mapped CLI exit code for the `FAIL` verdict.
+The displayed value is synthetic and never contains a real credential. A
+`FAIL` verdict maps to CLI exit code `2`; the evidence keeps the matched value
+redacted.
+
+## Why DiffSentry?
+
+AI-assisted development is useful, but a second model's opinion is not the only
+kind of verification a code change needs. DiffSentry focuses on checks whose
+inputs and outputs can be inspected and reproduced locally.
+
+| Another AI reviewer may provide | DiffSentry provides |
+| --- | --- |
+| Probabilistic opinion | Deterministic evidence |
+| Results that can vary with model, API, or context | The same result for the same inputs and signals |
+| An explanation of what the model thinks | Evidence showing what checks and rules observed |
+| A model-dependent service path | Local-first execution from a real Git change |
+| An LLM judging another LLM's output | Objective verification with explicit `PASS` / `REVIEW` / `FAIL` |
+
+DiffSentry does not argue that AI reviewers are useless. It complements them
+with the part of the review process that benefits from fixed rules, real
+verifier output, and redacted evidence.
 
 ## Quick start
 
-For the current source checkout, use Node.js 24 and pnpm 10.30.3. The shortest
-verified first check is the deterministic Git fixture flow:
+The public npm package is already available at v0.1.0. No global install is
+required:
 
 ```bash
-pnpm install --frozen-lockfile && pnpm exec vitest run tests/e2e/cli-fixture.test.ts
+# Use the current v0.1 line
+npx @felyx-fu/diffsentry check
+
+# Pin the released version when you need a reproducible command
+npx @felyx-fu/diffsentry@0.1.0 check
 ```
 
-This command creates a temporary Git repository, applies the checked-in
-secret-exposure fixture, runs the package-local check stack, verifies the
-`FAIL` report at `50/100`, and checks the mapped CLI exit code. It does not
-modify the checkout or require a global install.
-
-For a full source quality gate, run `pnpm lint`, `pnpm typecheck`, `pnpm test`,
-and `pnpm build` after the fixture check.
-
-The published npm CLI can be used directly:
+Useful commands:
 
 ```bash
+npx @felyx-fu/diffsentry --help
 npx @felyx-fu/diffsentry@0.1.0 --version
-npx @felyx-fu/diffsentry@0.1.0 check --format json --ci
+npx @felyx-fu/diffsentry check --format json --ci
 ```
 
-The second command returns exit code `2` when the checked change receives the
-expected `FAIL` verdict. The v0.1.0 public package set is available from npm:
-`@felyx-fu/diffsentry`, `@felyx-fu/diffsentry-contracts`,
-`@felyx-fu/diffsentry-core`, `@felyx-fu/diffsentry-runtime-node`,
-`@felyx-fu/diffsentry-rules`, `@felyx-fu/diffsentry-config`, and
-`@felyx-fu/diffsentry-report`.
+`--ci` selects JSON output by default. The CLI uses exit code `0` for `PASS`,
+`1` for `REVIEW`, `2` for `FAIL`, and `3` for a DiffSentry internal error.
+The v0.1 package requires Node.js `>=24 <25`.
 
-## Features
+## How it works
 
-The v0.1 source currently includes:
+```text
+Git diff
+  ↓
+Project signals
+  ↓
+Verification plan
+  ↓
+Tests / lint / typecheck / build
+  ↓
+Deterministic rules
+  ↓
+Redacted evidence
+  ↓
+RiskScore
+  ↓
+PASS / REVIEW / FAIL
+```
 
-- contracts for changes, findings, evidence, reports, verification results,
-  configuration, and verdicts;
-- a hexagonal core boundary with injected filesystem, Git, process, and clock
-  capabilities;
-- deterministic Git diff parsing, project signals, verification planning,
-  safe executable/argument resolution, and verifier result collection;
-- five built-in rules for workflow permission changes, runtime dependency
-  additions, secret exposure, authentication changes without related tests,
-  and source changes without tests;
-- JSON-only configuration with schema validation and deterministic precedence;
-- terminal, JSON, and Markdown report renderers;
-- CLI composition, check/config/init/explain command surfaces, CI JSON defaults,
-  and exit-code mapping;
-- GitHub Action metadata, read-only workflow examples, event-context parsing,
-  structured report handoff, Step Summary/output/annotation adapters, and a
-  Node-loadable local bundle.
+The same report model can be rendered as terminal, JSON, or Markdown output.
+The core pipeline is local-first and keeps runtime capabilities behind explicit
+adapters.
 
-The full release artifact and the live Action entrypoint are intentionally
-tracked separately from these source-level capabilities.
+## Built-in rules
 
-## Risk model
+DiffSentry v0.1 includes five deterministic rules:
 
-RiskScore is deterministic and uses only finding severity and verification
-results. The v0.1 severity weights are `info=0`, `low=5`, `medium=15`,
-`high=30`, and `critical=50`. Verification penalties are fixed by verifier
-and status, and the final score is capped at `100`.
+- `security.secret-exposure` — detects high-signal secret-like assignments and redacts matched values in evidence.
+- `testing.source-without-tests` — identifies changed source files without related changed tests.
+- `testing.auth-without-tests` — identifies authentication-related changes without related changed tests.
+- `dependency.runtime-dependency-added` — detects newly added runtime dependencies.
+- `ci.workflow-permission-change` — detects GitHub workflow permission changes that expand access.
 
-Finding confidence is evidence metadata; it does not affect RiskScore. The
-default thresholds are `review=15` and `fail=50`:
+Each finding includes a severity, rule identity, and evidence. The rule registry
+is static and explainable; v0.1 does not dynamically load third-party rules.
 
-- below `review`: `PASS`;
-- from `review` through below `fail`: `REVIEW`;
-- at or above `fail`: `FAIL`.
+## RiskScore
 
-See [01-PROJECT-CHARTER.md](01-PROJECT-CHARTER.md) and
-[02-ARCHITECTURE.md](02-ARCHITECTURE.md) for the normative model.
+`RiskScore` is deterministic. In v0.1 it is the sum of fixed finding severity
+weights and fixed verification penalties, capped at `100`. Finding confidence
+is evidence metadata and does not change the score. The default thresholds are
+`review = 15` and `fail = 50`.
 
-## Principles
+The normative weights, penalties, aggregation, and verifier-error distinction
+are documented in the [project charter](01-PROJECT-CHARTER.md) and
+[architecture specification](02-ARCHITECTURE.md#8-risk-model).
 
-- Evidence over opinion
-- Deterministic by default
-- Local-first execution
-- Core independent from integrations
-- Explainable rules and redacted evidence
-- Safe execution with explicit capability boundaries
-- JSON configuration as data, never executable code
-- Small, reviewable changes over speculative feature expansion
+## GitHub Action
 
-## Roadmap
+The repository also contains a private GitHub Action bundle that reuses the
+same core verification model. Its consuming-workflow example uses read-only
+`contents: read` permission and writes runner-local outputs such as a step
+summary, outputs, and annotations.
 
-- P0: foundation, repository policy, CI, and architecture boundaries
-- P1: contracts and ports
-- P2: Node runtime adapters and safe process execution
-- P3: core change, verification, risk, and report foundations
-- P4: built-in rules and evidence handling
-- P5: CLI, JSON configuration, and report formats
-- P6: GitHub Action metadata, adapters, examples, tests, and bundle tooling
-- P7: release documentation, examples, packaging, and release gates
+The v0.1 Action remains a private integration artifact. It is not presented as
+a public Marketplace package or as a hosted service.
 
-The current task status and evidence are tracked in
-[STATUS.md](STATUS.md); task specifications are in [tasks](tasks).
+## Current v0.1 boundaries
 
-## Non-goals for v0.1
+DiffSentry v0.1 is intentionally focused:
 
-DiffSentry v0.1 is not an AI code reviewer, a hosted dashboard, a package
-vulnerability database, a full CI platform, an IDE, or a replacement for every
-SAST tool. It does not use LLM scoring, network-based scoring, confidence
-scaling, category multipliers, or executable JavaScript/TypeScript
-configuration.
+- Node.js 24 only;
+- five built-in deterministic rules;
+- local CLI, npm packages, and a private GitHub Action bundle;
+- JSON configuration and terminal/JSON/Markdown reports;
+- no LLM-based scoring or network-based scoring;
+- no cloud service, dashboard, database, authentication, or enterprise policy platform;
+- not a full SAST or vulnerability-scanning replacement;
+- deep public package-boundary analysis remains a deferred placeholder.
+
+These boundaries are part of the product's credibility: the tool reports the
+evidence it can actually collect instead of promising a broader scanner.
+
+## Documentation
+
+- [Launch demo script](docs/launch/demo-script.md)
+- [Release notes](docs/release/v0.1.0.md)
+- [Release checklist](docs/release/v0.1-checklist.md)
+- [Architecture overview](docs/architecture/README.md)
+- [Risk and evidence specification](docs/specs/evidence.md)
+- [Configuration specification](docs/specs/config.md)
+- [CLI exit codes](docs/specs/exit-codes.md)
+- [Security and trust boundaries](05-SECURITY-AND-TRUST-BOUNDARIES.md)
 
 ## Contributing
 
-Read [AGENTS.md](AGENTS.md), [04-CODEX-EXECUTION-PROTOCOL.md](04-CODEX-EXECUTION-PROTOCOL.md),
-and [CONTRIBUTING.md](CONTRIBUTING.md) before changing the repository. Every
+Read [AGENTS.md](AGENTS.md),
+[04-CODEX-EXECUTION-PROTOCOL.md](04-CODEX-EXECUTION-PROTOCOL.md), and
+[CONTRIBUTING.md](CONTRIBUTING.md) before changing the repository. Every
 behavior change needs tests, every built-in rule needs positive and negative
 coverage, and `STATUS.md` is updated after each task.
+
+DiffSentry is released under the [MIT License](LICENSE).
