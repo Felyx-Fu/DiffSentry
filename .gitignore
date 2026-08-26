@@ -9,5 +9,5 @@ coverage/
 *.tsbuildinfo
 *.log
 
-# Local AgentGuard state
-.agentguard/
+# Local DiffSentry state
+.diffsentry/

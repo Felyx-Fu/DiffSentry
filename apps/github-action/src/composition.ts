@@ -1,27 +1,27 @@
 import {
   type ConfigLayer,
-  type MergedAgentGuardConfig,
+  type MergedDiffSentryConfig,
   mergeConfig,
-} from "@agentguard/config";
+} from "@felyx-fu/diffsentry-config";
 import {
-  type AgentGuardReportAssemblyInput,
-  type AssembledAgentGuardReport,
-  assembleAgentGuardReport,
+  type AssembledDiffSentryReport,
+  assembleDiffSentryReport,
   type CheckRepositoryDependencies,
   CheckRepositoryUseCase,
-} from "@agentguard/core";
-import { BUILT_IN_RULES } from "@agentguard/rules";
+  type DiffSentryReportAssemblyInput,
+} from "@felyx-fu/diffsentry-core";
+import { BUILT_IN_RULES } from "@felyx-fu/diffsentry-rules";
 import {
   NodeFileSystem,
   NodeGitProvider,
   NodeProcessRunner,
   SystemClock,
-} from "@agentguard/runtime-node";
+} from "@felyx-fu/diffsentry-runtime-node";
 import type { GitHubEventContext } from "./event-context.js";
 import { resolveBaseSha, resolveHeadSha } from "./revisions.js";
 
 export interface GitHubActionReportPort {
-  assemble(input: AgentGuardReportAssemblyInput): AssembledAgentGuardReport;
+  assemble(input: DiffSentryReportAssemblyInput): AssembledDiffSentryReport;
 }
 
 export interface GitHubActionCompositionOptions {
@@ -33,7 +33,7 @@ export interface GitHubActionCompositionOptions {
 
 export interface GitHubActionComposition {
   readonly checker: CheckRepositoryUseCase;
-  readonly config: MergedAgentGuardConfig;
+  readonly config: MergedDiffSentryConfig;
   readonly report: GitHubActionReportPort;
   readonly rules: typeof BUILT_IN_RULES;
   readonly runtime: CheckRepositoryDependencies;
@@ -51,7 +51,7 @@ function createDefaultRuntime(): CheckRepositoryDependencies {
 }
 
 const DEFAULT_REPORT: GitHubActionReportPort = {
-  assemble: assembleAgentGuardReport,
+  assemble: assembleDiffSentryReport,
 };
 
 export function createGitHubActionComposition(

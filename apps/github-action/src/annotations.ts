@@ -1,4 +1,4 @@
-import type { AssembledAgentGuardReport } from "@agentguard/core";
+import type { AssembledDiffSentryReport } from "@felyx-fu/diffsentry-core";
 
 export type GitHubAnnotationLevel = "error" | "warning" | "notice";
 
@@ -14,12 +14,12 @@ export interface GitHubAnnotation {
 }
 
 export interface PublishGitHubAnnotationsOptions {
-  readonly report: AssembledAgentGuardReport;
+  readonly report: AssembledDiffSentryReport;
   readonly writeLine?: (line: string) => void;
 }
 
 function annotationLevel(
-  severity: AssembledAgentGuardReport["findings"][number]["severity"],
+  severity: AssembledDiffSentryReport["findings"][number]["severity"],
 ): GitHubAnnotationLevel {
   switch (severity) {
     case "critical":
@@ -34,14 +34,14 @@ function annotationLevel(
 }
 
 type FindingLocation = NonNullable<
-  AssembledAgentGuardReport["findings"][number]["location"]
+  AssembledDiffSentryReport["findings"][number]["location"]
 >;
 type ValidLocation = Omit<FindingLocation, "startLine"> & {
   readonly startLine: number;
 };
 
 function getValidLocation(
-  location: AssembledAgentGuardReport["findings"][number]["location"],
+  location: AssembledDiffSentryReport["findings"][number]["location"],
 ): ValidLocation | undefined {
   if (
     location === undefined ||
@@ -85,7 +85,7 @@ function getValidLocation(
 }
 
 function annotationForFinding(
-  finding: AssembledAgentGuardReport["findings"][number],
+  finding: AssembledDiffSentryReport["findings"][number],
   location: ValidLocation,
 ): GitHubAnnotation {
   return {
@@ -105,7 +105,7 @@ function annotationForFinding(
 }
 
 export function createGitHubAnnotations(
-  report: AssembledAgentGuardReport,
+  report: AssembledDiffSentryReport,
 ): readonly GitHubAnnotation[] {
   const annotations: GitHubAnnotation[] = [];
 

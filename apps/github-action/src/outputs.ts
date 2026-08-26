@@ -7,9 +7,9 @@ export type GitHubActionOutputErrorCode =
   | "write-failed";
 
 const ERROR_MESSAGES: Readonly<Record<GitHubActionOutputErrorCode, string>> = {
-  "missing-path": "GITHUB_OUTPUT is required to publish AgentGuard outputs",
-  "invalid-result": "The AgentGuard report contains invalid scalar outputs",
-  "write-failed": "AgentGuard action outputs could not be written",
+  "missing-path": "GITHUB_OUTPUT is required to publish DiffSentry outputs",
+  "invalid-result": "The DiffSentry report contains invalid scalar outputs",
+  "write-failed": "DiffSentry action outputs could not be written",
 };
 
 export class GitHubActionOutputError extends Error {

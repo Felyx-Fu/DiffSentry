@@ -2,7 +2,7 @@
 
 ## Supported scope
 
-Security reports are welcome for the current AgentGuard v0.1 development line,
+Security reports are welcome for the current DiffSentry v0.1 development line,
 including:
 
 - process execution and argument handling;
@@ -13,7 +13,7 @@ including:
 - vulnerabilities introduced by the project’s own dependencies.
 
 The security policy does not make a claim about third-party repositories that
-AgentGuard inspects. Those repositories remain untrusted input, and their
+DiffSentry inspects. Those repositories remain untrusted input, and their
 maintainers are responsible for their own security response.
 
 ## Reporting a vulnerability
@@ -28,7 +28,7 @@ omit sensitive details.
 
 A useful report should include, where safe to share:
 
-- the affected AgentGuard version or commit;
+- the affected DiffSentry version or commit;
 - the affected file or component;
 - a concise description of the security impact;
 - safe reproduction steps or a minimal test case; and

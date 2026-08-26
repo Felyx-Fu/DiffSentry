@@ -1,4 +1,4 @@
-name: AgentGuard
+name: DiffSentry
 
 on:
   pull_request:
@@ -6,12 +6,12 @@ on:
     branches:
       - main
 
-# AgentGuard v0.1 is read-only at the GitHub permission boundary.
+# DiffSentry v0.1 is read-only at the GitHub permission boundary.
 permissions:
   contents: read
 
 jobs:
-  agentguard:
+  diffsentry:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -21,7 +21,7 @@ jobs:
 
       # This local path is for the repository's own workflow/example. It
       # requires the bundled apps/github-action/dist artifact from AG-613.
-      - name: Run AgentGuard
+      - name: Run DiffSentry
         uses: ./apps/github-action
         with:
           format: markdown

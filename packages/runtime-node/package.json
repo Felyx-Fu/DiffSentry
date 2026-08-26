@@ -1,5 +1,5 @@
 {
-  "name": "@agentguard/runtime-node",
+  "name": "@felyx-fu/diffsentry-runtime-node",
   "version": "0.1.0",
   "license": "MIT",
   "engines": {
@@ -7,13 +7,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Felyx-Fu/AgentGuard.git",
+    "url": "git+https://github.com/Felyx-Fu/DiffSentry.git",
     "directory": "packages/runtime-node"
   },
   "bugs": {
-    "url": "https://github.com/Felyx-Fu/AgentGuard/issues"
+    "url": "https://github.com/Felyx-Fu/DiffSentry/issues"
   },
-  "homepage": "https://github.com/Felyx-Fu/AgentGuard#readme",
+  "homepage": "https://github.com/Felyx-Fu/DiffSentry#readme",
   "publishConfig": {
     "access": "public"
   },

@@ -8,7 +8,7 @@ describe("NodeProcessRunner", () => {
     const result = await processRunner.run({
       command: {
         executable: process.execPath,
-        args: ["-e", "process.stdout.write('agentguard')"],
+        args: ["-e", "process.stdout.write('diffsentry')"],
       },
       cwd: process.cwd(),
       timeoutMs: 5_000,
@@ -18,9 +18,9 @@ describe("NodeProcessRunner", () => {
 
     expect(result.command).toEqual({
       executable: process.execPath,
-      args: ["-e", "process.stdout.write('agentguard')"],
+      args: ["-e", "process.stdout.write('diffsentry')"],
     });
-    expect(result.stdout).toEqual({ text: "agentguard", truncated: false });
+    expect(result.stdout).toEqual({ text: "diffsentry", truncated: false });
     expect(result.stderr).toEqual({ text: "", truncated: false });
     expect(result.exitCode).toBe(0);
   });
@@ -108,7 +108,7 @@ describe("NodeProcessRunner", () => {
 
     const result = processRunner.run({
       command: {
-        executable: "agentguard-command-that-does-not-exist",
+        executable: "diffsentry-command-that-does-not-exist",
         args: [],
       },
       cwd: process.cwd(),

@@ -2,11 +2,11 @@ import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import type {
-  AgentGuardReportAssemblyInput,
+  DiffSentryReportAssemblyInput,
   ReportFinding,
   ReportVerification,
 } from "../../../packages/core/src/application/report-assembler.js";
-import { assembleAgentGuardReport } from "../../../packages/core/src/application/report-assembler.js";
+import { assembleDiffSentryReport } from "../../../packages/core/src/application/report-assembler.js";
 import { assembleChangeSet } from "../../../packages/core/src/domain/change/change-set.js";
 import {
   calculateRiskScore,
@@ -78,7 +78,7 @@ describe("core risk determinism integration", () => {
           verifications: verificationInputs,
         });
         const verdict = calculateVerdict(riskScore, config);
-        const reportInput: AgentGuardReportAssemblyInput = {
+        const reportInput: DiffSentryReportAssemblyInput = {
           changes,
           findings,
           project: {
@@ -94,7 +94,7 @@ describe("core risk determinism integration", () => {
           version: "0.1.0",
         };
 
-        return assembleAgentGuardReport(reportInput);
+        return assembleDiffSentryReport(reportInput);
       };
 
       const firstReport = evaluate();

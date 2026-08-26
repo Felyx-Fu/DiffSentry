@@ -1,4 +1,4 @@
-# AgentGuard Development Status
+# DiffSentry Development Status
 
 ## Current phase
 
@@ -6,7 +6,7 @@ P7 — Release & Open Source
 
 ## Current task
 
-AG-720 — Prepare v0.1.0 release candidate
+DiffSentry final brand / npm namespace migration and release candidate protocol
 
 ## Completed tasks
 
@@ -5153,6 +5153,240 @@ Evidence boundary:
 - AG-719 is complete. AG-720 is now the current task and is limited to
   release-candidate validation; no publish, tag, GitHub Release, release
   workflow, release PR, or formal readiness claim is authorized.
+
+### AG-720 DONE
+
+Summary:
+- Completed release-candidate validation for the already implemented v0.1
+  scope without adding features, changing architecture, weakening tests, or
+  changing security/trust boundaries.
+- AG-719 remains DONE and AG-718 remains DONE. The next task is AG-721; no
+  formal v0.1.0 readiness claim has been made by this task.
+
+Clean installation and local quality gates:
+- `pnpm install --frozen-lockfile --force --ignore-scripts`: PASS; pnpm
+  reported the lockfile was up to date across all 9 workspace projects.
+- The local host is Node `v25.9.0`, which produced the expected engine warning;
+  the required policy `>=24 <25` was preserved and was not relaxed.
+- `pnpm lint`: PASS — Biome checked 252 files.
+- `pnpm typecheck`: PASS.
+- `pnpm test`: PASS — 97 files, 276 tests.
+- `pnpm build`: PASS — all 8 Turbo build tasks completed, including all
+  public package `dist/` outputs and the private GitHub Action bundle.
+- `node scripts/check-architecture.ts`: PASS — contracts 10 and core 75
+  source files checked.
+- `node scripts/check-package-boundaries.ts`: PASS only as the existing
+  placeholder; it explicitly reports that deep public-import validation is
+  deferred. No claim of deep package-boundary validation is made.
+- Read-only source scans found no new shell-string execution, dynamic code
+  evaluation, core/contracts Node imports, or LLM/network client usage. The
+  existing static JSON schema URL remains the only expected URL match.
+
+Examples, CLI, Action, and workflow validation:
+- `examples/basic`: TypeScript compilation and the example test passed.
+- `examples/bad-ai-pr`: both example tests passed, including review and fail
+  outcomes.
+- Built CLI smoke: `node packages/cli/dist/main.js --help` and `--version`
+  passed; version output was `0.1.0`.
+- Private GitHub Action bundle import and required export checks passed;
+  `apps/github-action/dist/main.js` contained no bare workspace package
+  imports.
+- Action metadata, local example permissions, dogfood workflow, and release
+  workflow structure were inspected. The release workflow was not executed;
+  no release workflow, publish, tag, GitHub Release, release PR, or NPM_TOKEN
+  operation was performed.
+
+Public package artifact gate:
+- `pnpm pack` produced seven actual tarballs in
+  `C:\Users\fukan\AppData\Local\Temp\agentguard-pack-artifacts-20260826-v7`:
+  `@agentguard/contracts`, `@agentguard/core`,
+  `@agentguard/runtime-node`, `@agentguard/rules`, `@agentguard/config`,
+  `@agentguard/report`, and `@agentguard/cli`, all at version `0.1.0`.
+- Each tarball file list passed the allowlist: `package.json`, package-local
+  README, MIT LICENSE, and `dist/**` only. No `src`, tests, fixtures,
+  coverage, development TypeScript config, temporary, or unrelated tooling
+  files were present.
+- Each packed manifest passed ESM metadata and root export checks for
+  `./dist/index.js` and `./dist/index.d.ts`; the CLI additionally contained
+  `./dist/main.js` and its `agentguard` bin pointed there.
+- Packed production metadata contained no `workspace:` specifiers; internal
+  AgentGuard dependency ranges were materialized as `0.1.0`.
+- A deliberately strict diagnostic using `npm pack` was rejected because it
+  left `workspace:*` in production metadata. The final gate used the
+  repository's approved pnpm pack path and revalidated the actual tarballs;
+  this was not treated as an unverified package-manager assumption.
+
+External packed-consumer validation:
+- Fresh consumer: `C:\Users\fukan\AppData\Local\Temp\agentguard-pack-consumer-20260826-v5`.
+- npm installed all seven packed artifacts successfully and `npm ls` showed a
+  valid dependency tree with internal packages resolved at `0.1.0`.
+- ESM root imports of all seven public packages passed.
+- TypeScript declaration resolution passed with strict consumer compilation.
+- The packed npm executable passed `agentguard --help` and
+  `agentguard --version` (`0.1.0`).
+
+Release boundary:
+- `docs/release/v0.1-checklist.md` remains intentionally unchecked; this
+  validation does not announce `v0.1.0 READY TO RELEASE`.
+- No tag, GitHub Release, npm publish, changeset publish, production release
+  workflow, NPM_TOKEN use, or other release write was performed.
+- AG-720 is complete on the local validated source state. AG-721 is now the
+  current task and must make any readiness decision only within its own task
+  scope and the still-absent independent final release authorization.
+
+### AG-721 DONE
+
+Review date: `2026-08-26`
+
+Decision:
+
+```text
+AgentGuard v0.1.0
+STATUS: READY TO RELEASE
+PUBLICATION: NOT AUTHORIZED / NOT PERFORMED
+```
+
+Reviewed source state:
+- Reviewed revision: `5219ccbe604c5756cbe333572bf6eef633aee8a4` on `main`, with
+  `origin/main` at the same revision when this review began.
+- The source code tested by the final AG-719 hosted run is commit
+  `ea32fac187ddf239e590208136c744460a286f45`; the subsequent `5219ccbe...`
+  revision contains the recorded status update and no source-behavior change.
+- Canonical repository: `Felyx-Fu/AgentGuard` —
+  `https://github.com/Felyx-Fu/AgentGuard`.
+
+Authoritative evidence reviewed:
+- `00-READ-ME-FIRST.md`, `AGENTS.md`, `01-PROJECT-CHARTER.md`,
+  `02-ARCHITECTURE.md`, `03-ENGINEERING-STANDARDS.md`,
+  `05-SECURITY-AND-TRUST-BOUNDARIES.md`, `06-DEFINITION-OF-DONE.md`,
+  `TASK-INDEX.md`, `tasks/P7-release-and-open-source.md`,
+  `docs/release/v0.1-checklist.md`, and the complete preceding task record in
+  this file.
+- AG-719 hosted CI evidence: workflow `CI`, run `32935751675`, with
+  `ubuntu-latest`, `windows-latest`, and `macos-latest` all PASS under Node
+  24. The platform job URLs and exact hosted Node versions are recorded in
+  the AG-719 section above.
+- AG-720 release-candidate evidence: clean frozen-lockfile install, lint,
+  typecheck, test, build, architecture check, examples, CLI, Action bundle,
+  seven real pnpm-packed tarballs, packed manifest/file-list inspection, and
+  clean external npm consumer validation are recorded in the AG-720 section
+  above.
+- Additional packed-manifest review of the AG-720 tarballs confirmed all seven
+  canonical repository URLs, homepage/bugs URLs, and accurate
+  `repository.directory` values:
+  `packages/contracts`, `packages/core`, `packages/runtime-node`,
+  `packages/rules`, `packages/config`, `packages/report`, and `packages/cli`.
+- Review-host tool versions were Node `v25.9.0`, pnpm `10.30.3`, npm
+  `11.12.1`, and Git `2.45.1.windows.1`. The Node 25 host was not used as
+  supported-runtime release evidence; the Node 24 hosted matrix is the
+  supported-runtime evidence.
+
+Release-level review result:
+- Source quality requirements are satisfied by the final local quality gate:
+  lint, typecheck, tests, build, and architecture validation all passed.
+- Supported-runtime and platform requirements are satisfied by the recorded
+  Node 24 hosted matrix on Linux, Windows, and macOS.
+- Product requirements are supported by the completed P0-P6 task evidence:
+  Node project detection, Git diff analysis, verifier flow, the normative
+  deterministic Risk Model, five built-in rules, evidence/reporting, CLI, and
+  GitHub Action adapters.
+- Documentation requirements are satisfied by the English and Chinese
+  READMEs, architecture/config/evidence/rule/report/exit-code/Risk Model
+  documentation, reproducible examples, and the new validated release note
+  at `docs/release/v0.1.0.md`.
+- Distribution requirements are satisfied by the seven actual pnpm-packed
+  artifacts and the external consumer checks. No source-tree-only package
+  claim was used.
+- Security and release-boundary review found no known critical v0.1 issue:
+  JSON configuration remains data, shell-free argument-array execution and
+  output bounds are preserved, core/domain Node imports and `console.log`
+  remain absent, and no LLM/network scoring or undocumented Risk Score
+  behavior was introduced.
+- `docs/release/v0.1-checklist.md` now marks evidence-backed readiness items
+  complete and keeps npm publication, release tag, GitHub Release, and
+  production release workflow items explicitly unchecked.
+
+Known non-blocking limitations:
+- `scripts/check-package-boundaries.ts` remains the documented placeholder and
+  reports that deep public-import validation is deferred. The existing
+  authoritative release-level DoD does not require implementing that analyzer
+  for v0.1, and no deep-validation PASS is claimed.
+- The local host is Node `25.9.0`, outside `>=24 <25`; this is not a release
+  blocker because real Node 24 hosted evidence exists.
+- The GitHub Action bundle and adapter behavior were validated through source,
+  tests, artifact loading, and workflow structure. No live third-party Action
+  execution is claimed.
+
+Release boundary:
+- Publication has not occurred. No npm publish, Changesets publish, NPM_TOKEN
+  use, tag creation, GitHub Release, release workflow execution, release PR,
+  or registry write was performed.
+- `READY TO RELEASE` is a readiness decision only. Actual release still
+  requires separate explicit user authorization.
+- AG-721 is complete. Stop here and wait for that separate authorization.
+
+### DiffSentry namespace migration — IN PROGRESS
+
+Review date: `2026-08-26`
+
+Authoritative migration decision:
+- The current product identity is `DiffSentry`, positioned as deterministic,
+  local-first verification for code changes. Architecture, security/trust
+  boundaries, verifier semantics, rule semantics, evidence model, and the
+  normative v0.1 Risk Model are unchanged.
+- Canonical repository migration is authorized and has been completed as a
+  history-preserving GitHub rename from `Felyx-Fu/AgentGuard` to
+  `Felyx-Fu/DiffSentry`. The default branch remains `main`; `origin` now uses
+  `https://github.com/Felyx-Fu/DiffSentry.git`.
+- The seven public package targets are now the controlled `@felyx-fu` names:
+  `diffsentry`, `diffsentry-contracts`, `diffsentry-core`,
+  `diffsentry-runtime-node`, `diffsentry-rules`, `diffsentry-config`, and
+  `diffsentry-report`. The GitHub Action is
+  `@felyx-fu/diffsentry-github-action`, remains `private: true`, and is not a
+  public npm package.
+- Current production source, package manifests, examples, current normative
+  docs, templates, and workflow metadata have no unintended old
+  `@agentguard/*`, `AgentGuard`, `agentguard`, or old repository references.
+  Historical task/status/ADR evidence retains old identity where it explains
+  prior work or migration history.
+
+Local migration validation:
+- Frozen install, lint, typecheck, test, build, direct strict TypeScript
+  projects, architecture validation, and the existing package-boundary
+  placeholder all passed on the local Node `v25.9.0` host; the required engine
+  policy remains `>=24 <25`.
+- The migration regression suite passed: package names and metadata, internal
+  dependency names, ESM exports, CLI bin/version identity, private Action
+  metadata, current product text, and absence of old production references.
+- Fresh DiffSentry package artifacts were generated under
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-artifacts-20260826-v3`.
+  All seven tarballs passed file-list, manifest, ESM entry, declaration,
+  internal dependency materialization, and no-old-identity checks. The private
+  Action bundle was rebuilt and loaded with its expected exports; no bare old
+  or new workspace imports remain in the bundle.
+- Fresh packed consumer:
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-consumer-20260826-v1`.
+  All seven new tarballs installed successfully, `npm ls` resolved the graph,
+  representative ESM imports passed, and strict TypeScript declaration
+  resolution passed. Packed `diffsentry --help` and `--version` passed, with
+  version `0.1.0`.
+- The existing top-level CLI dispatcher still rejects `diffsentry check` with
+  its usage error, exactly as the pre-migration `agentguard check` path did;
+  the migration did not add or remove CLI semantics. This remains visible and
+  is not claimed as a successful full executable check flow.
+
+npm and release boundaries:
+- Read-only npm preflight used `https://registry.npmjs.org/`. All seven new
+  names returned E404 (not currently published/visible). `npm whoami` and
+  `npm access list packages` returned ENEEDAUTH, so authenticated scope
+  ownership/publishability could not be proven on this machine and is not
+  claimed.
+- `@changesets/cli` remains `3.0.1`; the release workflow now uses the
+  official `changesets/action@v2` input names. A checked-in empty changeset
+  records that this namespace migration does not bump package versions.
+- No npm publish, Changesets publish, NPM_TOKEN use, tag, GitHub Release,
+  release workflow execution, release PR, or formal `RELEASED` claim has been
+  made. Fresh hosted DiffSentry CI evidence is still pending.
 
 ## Notes
 

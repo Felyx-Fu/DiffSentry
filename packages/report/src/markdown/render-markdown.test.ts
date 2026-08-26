@@ -1,8 +1,8 @@
-import type { AgentGuardReport } from "@agentguard/contracts";
+import type { DiffSentryReport } from "@felyx-fu/diffsentry-contracts";
 import { describe, expect, it } from "vitest";
 import { renderMarkdownReport } from "./render-markdown.js";
 
-const baseReport: AgentGuardReport = {
+const baseReport: DiffSentryReport = {
   changes: { baseRef: "main", files: [], headRef: "feature" },
   findings: [],
   project: {
@@ -22,7 +22,7 @@ const baseReport: AgentGuardReport = {
 describe("renderMarkdownReport", () => {
   it("renders an empty report for a passing result", () => {
     expect(renderMarkdownReport(baseReport)).toMatchInlineSnapshot(`
-      "## AgentGuard 0.1.0
+      "## DiffSentry 0.1.0
 
       - **Verdict:** \`PASS\`
       - **Risk score:** \`0/100\`
@@ -77,7 +77,7 @@ describe("renderMarkdownReport", () => {
         ],
       }),
     ).toMatchInlineSnapshot(`
-      "## AgentGuard 0.1.0
+      "## DiffSentry 0.1.0
 
       - **Verdict:** \`REVIEW\`
       - **Risk score:** \`30/100\`

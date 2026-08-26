@@ -78,7 +78,7 @@ Before release readiness, every public package must pass the artifact gate:
 - source files, tests, fixtures, coverage, development TypeScript configs, and
   temporary files are absent;
 - a temporary external consumer imports representative packed ESM package
-  roots, resolves TypeScript declarations, and runs `agentguard --help` from
+  roots, resolves TypeScript declarations, and runs `diffsentry --help` from
   the packed CLI.
 
 The GitHub Action is excluded from the public npm package list. It remains a
@@ -88,7 +88,7 @@ separately.
 ## AG-719 hosted CI evidence gate
 
 AG-719 has limited authorization to create and use the canonical
-`Felyx-Fu/AgentGuard` GitHub repository, push the validated source and required
+`Felyx-Fu/DiffSentry` GitHub repository, push the validated source and required
 CI fixes, trigger the formal CI workflow, and read hosted-run evidence. This
 does not authorize npm publication, Changesets publication, NPM_TOKEN use,
 tags, GitHub Releases, release PRs, release-workflow execution, or a

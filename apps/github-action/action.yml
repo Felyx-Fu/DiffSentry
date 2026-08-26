@@ -1,4 +1,4 @@
-name: AgentGuard
+name: DiffSentry
 description: Deterministic verification for Node.js changes
 inputs:
   base:
@@ -10,7 +10,7 @@ inputs:
     required: false
     default: ""
   config:
-    description: Path to the JSON AgentGuard configuration file.
+    description: Path to the JSON DiffSentry configuration file.
     required: false
     default: ""
   format:
@@ -23,9 +23,9 @@ inputs:
     default: fail
 outputs:
   risk-score:
-    description: The deterministic AgentGuard risk score from 0 to 100.
+    description: The deterministic DiffSentry risk score from 0 to 100.
   verdict:
-    description: The AgentGuard verdict: pass, review, or fail.
+    description: The DiffSentry verdict: pass, review, or fail.
 runs:
   using: node24
   main: dist/main.js

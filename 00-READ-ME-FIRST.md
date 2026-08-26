@@ -1,6 +1,6 @@
-# AgentGuard — Codex Development Pack
+# DiffSentry — Codex Development Pack
 
-This directory is the authoritative development specification for AgentGuard v0.1.
+This directory is the authoritative development specification for DiffSentry v0.1.
 
 ## Read order
 
@@ -23,7 +23,7 @@ If documents conflict, the precedence is:
 
 ## Product objective
 
-AgentGuard verifies code changes using deterministic evidence rather than another model's opinion.
+DiffSentry verifies code changes using deterministic evidence rather than another model's opinion.
 
 Core statement:
 
@@ -59,7 +59,7 @@ Explicitly out of scope:
 
 ## Development rule
 
-Never implement "AgentGuard" as one large task.
+Never implement "DiffSentry" as one large task.
 
 The project is developed in this order:
 

@@ -2,7 +2,7 @@
 
 ## Our commitment
 
-We want AgentGuard to be a welcoming, respectful, and technically rigorous
+We want DiffSentry to be a welcoming, respectful, and technically rigorous
 project for everyone who participates in its development or community.
 
 ## Expected behavior
@@ -52,4 +52,4 @@ policy.
 ## Attribution
 
 This policy is adapted from the Contributor Covenant community standards and
-tailored to AgentGuard’s repository and security-boundary requirements.
+tailored to DiffSentry’s repository and security-boundary requirements.

@@ -8,14 +8,14 @@ export interface CliOutput {
   readonly stderr: (text: string) => void;
 }
 
-export const CLI_HELP = `AgentGuard ${CLI_VERSION}
+export const CLI_HELP = `DiffSentry ${CLI_VERSION}
 
 Usage:
-  agentguard check [options]
-  agentguard init
-  agentguard explain <rule-id>
-  agentguard --help
-  agentguard --version
+  diffsentry check [options]
+  diffsentry init
+  diffsentry explain <rule-id>
+  diffsentry --help
+  diffsentry --version
 
 Check options:
   --base <ref>                     Compare from a base Git ref.
@@ -47,7 +47,7 @@ export function runCli(
     return 0;
   }
 
-  output.stderr("Unknown command or option. Use `agentguard --help`.\n");
+  output.stderr("Unknown command or option. Use `diffsentry --help`.\n");
   return 1;
 }
 

@@ -1,9 +1,9 @@
 import type {
-  AgentGuardReport,
+  DiffSentryReport,
   EvidenceLocation,
   Finding,
   VerificationResult,
-} from "@agentguard/contracts";
+} from "@felyx-fu/diffsentry-contracts";
 
 function formatPosition(
   line: number | undefined,
@@ -57,9 +57,9 @@ function formatVerification(verification: VerificationResult): string {
   return `- ${verification.id}: ${verification.status.toUpperCase()} (${command})`;
 }
 
-export function renderTerminalReport(report: AgentGuardReport): string {
+export function renderTerminalReport(report: DiffSentryReport): string {
   const lines = [
-    `AgentGuard ${report.version}`,
+    `DiffSentry ${report.version}`,
     `Verdict: ${report.verdict.toUpperCase()}`,
     `Risk score: ${report.riskScore}/100`,
     `Findings: ${report.findings.length}`,

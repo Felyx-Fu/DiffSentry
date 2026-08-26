@@ -1,11 +1,11 @@
-import type { AssembledAgentGuardReport } from "@agentguard/core";
+import type { AssembledDiffSentryReport } from "@felyx-fu/diffsentry-core";
 import { describe, expect, it } from "vitest";
 import {
   GitHubActionOutputError,
   publishGitHubActionOutputs,
 } from "./outputs.js";
 
-function createReport(): AssembledAgentGuardReport {
+function createReport(): AssembledDiffSentryReport {
   return {
     changes: { baseRef: "base-sha", files: [], headRef: "head-sha" },
     findings: [

@@ -1,12 +1,12 @@
-import type { AgentGuardReport } from "@agentguard/contracts";
-import type { CheckRepositoryDependencies } from "@agentguard/core";
+import type { DiffSentryReport } from "@felyx-fu/diffsentry-contracts";
+import type { CheckRepositoryDependencies } from "@felyx-fu/diffsentry-core";
 import {
   renderJsonReport,
   renderMarkdownReport,
   renderTerminalReport,
-} from "@agentguard/report";
+} from "@felyx-fu/diffsentry-report";
 import { describe, expect, it } from "vitest";
-import { createAgentGuard } from "../composition/create-agentguard.js";
+import { createDiffSentry } from "../composition/create-diffsentry.js";
 import {
   CHECK_CI_DEFAULT_FORMAT,
   CheckCommandConfigError,
@@ -37,7 +37,7 @@ function createRuntime(
   };
 }
 
-const report: AgentGuardReport = {
+const report: DiffSentryReport = {
   changes: { baseRef: "main", files: [], headRef: "feature" },
   findings: [],
   project: {
@@ -57,7 +57,7 @@ const report: AgentGuardReport = {
 describe("runCheckCommand", () => {
   it("collects the current repository status and working-tree diff", async () => {
     const calls: string[] = [];
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime({
         getDiff: async () => "",
         getRepositoryRoot: async (path) => {
@@ -109,7 +109,7 @@ describe("runCheckCommand", () => {
 
   it("passes an explicit base ref as a semantic GitProvider argument", async () => {
     const calls: string[] = [];
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime({
         getDiff: async (repositoryRoot, baseRef, headRef) => {
           calls.push(`diff:${repositoryRoot}:${baseRef}:${headRef}`);
@@ -144,7 +144,7 @@ describe("runCheckCommand", () => {
 
   it("passes explicit base and head refs together without shell construction", async () => {
     const calls: string[] = [];
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime({
         getDiff: async (repositoryRoot, baseRef, headRef) => {
           calls.push(`diff:${repositoryRoot}:${baseRef}:${headRef}`);
@@ -177,7 +177,7 @@ describe("runCheckCommand", () => {
 
   it("uses HEAD as the semantic base when only a head ref is supplied", async () => {
     const calls: string[] = [];
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime({
         getDiff: async (repositoryRoot, baseRef, headRef) => {
           calls.push(`diff:${repositoryRoot}:${baseRef}:${headRef}`);
@@ -209,7 +209,7 @@ describe("runCheckCommand", () => {
 
   it("returns a structured non-repository outcome without collecting a diff", async () => {
     const calls: string[] = [];
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime({
         getDiff: async () => "",
         getRepositoryRoot: async () => null,
@@ -245,7 +245,7 @@ describe("runCheckCommand", () => {
 
   it("loads and validates an explicit JSON config path before checking", async () => {
     const readPaths: string[] = [];
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime(
         {
           getDiff: async () => "",
@@ -267,7 +267,7 @@ describe("runCheckCommand", () => {
     await expect(
       runCheckCommand({
         composition,
-        configPath: "E:/workspace/agentguard.custom.json",
+        configPath: "E:/workspace/diffsentry.custom.json",
         cwd: "E:/workspace",
       }),
     ).resolves.toMatchObject({
@@ -281,7 +281,7 @@ describe("runCheckCommand", () => {
         },
       },
     });
-    expect(readPaths).toEqual(["E:/workspace/agentguard.custom.json"]);
+    expect(readPaths).toEqual(["E:/workspace/diffsentry.custom.json"]);
   });
 
   it("accepts only the supported report format names", () => {
@@ -313,7 +313,7 @@ describe("runCheckCommand", () => {
   });
 
   it("rejects malformed, non-JSON, and invalid-schema config paths", async () => {
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime(
         {
           getDiff: async () => "",
@@ -362,7 +362,7 @@ describe("runCheckCommand", () => {
   });
 
   it("reports an unreadable explicit config path without executing anything", async () => {
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       runtime: createRuntime(
         {
           getDiff: async () => "",

@@ -1,6 +1,6 @@
-# @agentguard/rules
+# @felyx-fu/diffsentry-rules
 
-Deterministic built-in AgentGuard v0.1 rules and the static rule registry.
+Deterministic built-in DiffSentry v0.1 rules and the static rule registry.
 Rules classify repository changes and return explainable findings with
 bounded evidence.
 
@@ -10,5 +10,5 @@ arbitrary shell strings, or use an LLM.
 The published entry point is the package root:
 
 ```ts
-import { BUILT_IN_RULES } from "@agentguard/rules";
+import { BUILT_IN_RULES } from "@felyx-fu/diffsentry-rules";
 ```

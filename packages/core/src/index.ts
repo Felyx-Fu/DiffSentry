@@ -1,8 +1,8 @@
 export type { CheckRepositoryDependencies } from "./application/check-repository.js";
 export { CheckRepositoryUseCase } from "./application/check-repository.js";
 export type {
-  AgentGuardReportAssemblyInput,
-  AssembledAgentGuardReport,
+  AssembledDiffSentryReport,
+  DiffSentryReportAssemblyInput,
   ReportEvidence,
   ReportEvidenceLocation,
   ReportFinding,
@@ -12,7 +12,7 @@ export type {
   ReportVerificationOutputSummary,
 } from "./application/report-assembler.js";
 export {
-  assembleAgentGuardReport,
+  assembleDiffSentryReport,
   REPORT_SCHEMA_VERSION,
 } from "./application/report-assembler.js";
 export type { RuleExecutionResult } from "./application/rule-execution-coordinator.js";

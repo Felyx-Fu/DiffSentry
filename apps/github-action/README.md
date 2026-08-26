@@ -1,4 +1,4 @@
-# AgentGuard GitHub Action
+# DiffSentry GitHub Action
 
 ## Permission contract
 

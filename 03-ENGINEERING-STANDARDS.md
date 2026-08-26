@@ -17,11 +17,11 @@
 
 ### 1.1 Canonical release identity
 
-The v0.1 canonical repository identity is `Felyx-Fu/AgentGuard`.
+The v0.1 canonical repository identity is `Felyx-Fu/DiffSentry`.
 
-- Git metadata URL: `git+https://github.com/Felyx-Fu/AgentGuard.git`;
-- homepage: `https://github.com/Felyx-Fu/AgentGuard#readme`;
-- issue tracker: `https://github.com/Felyx-Fu/AgentGuard/issues`.
+- Git metadata URL: `git+https://github.com/Felyx-Fu/DiffSentry.git`;
+- homepage: `https://github.com/Felyx-Fu/DiffSentry#readme`;
+- issue tracker: `https://github.com/Felyx-Fu/DiffSentry/issues`.
 
 This metadata identifies the intended project only. v0.1 development tasks do
 not create tags or GitHub Releases, publish npm packages, or perform release
@@ -31,7 +31,7 @@ evidence; that authorization does not grant any release or publication rights.
 
 ### 1.2 AG-719 hosted CI authorization
 
-AG-719 may create and use the canonical `Felyx-Fu/AgentGuard` repository on
+AG-719 may create and use the canonical `Felyx-Fu/DiffSentry` repository on
 GitHub with default branch `main`. Only the following remote operations are in
 scope for that task:
 
@@ -101,7 +101,7 @@ Do not use deep imports across packages.
 Allowed:
 
 ```ts
-import { Finding } from "@agentguard/contracts";
+import { Finding } from "@felyx-fu/diffsentry-contracts";
 ```
 
 Forbidden:
@@ -114,7 +114,7 @@ Each package exposes a deliberate public API from `src/index.ts`.
 
 ## 5. Error handling
 
-Use typed AgentGuard errors for expected system failures.
+Use typed DiffSentry errors for expected system failures.
 
 Expected categories include:
 - configuration
@@ -197,9 +197,9 @@ Any new exported public contract must:
 
 ## 12. Public package build and tarball policy
 
-The seven public v0.1 packages are `@agentguard/contracts`,
-`@agentguard/core`, `@agentguard/runtime-node`, `@agentguard/rules`,
-`@agentguard/config`, `@agentguard/report`, and `@agentguard/cli`.
+The seven public v0.1 packages are `@felyx-fu/diffsentry-contracts`,
+`@felyx-fu/diffsentry-core`, `@felyx-fu/diffsentry-runtime-node`, `@felyx-fu/diffsentry-rules`,
+`@felyx-fu/diffsentry-config`, `@felyx-fu/diffsentry-report`, and `@felyx-fu/diffsentry`.
 
 Each public package must have a package-local `tsconfig.build.json` and an
 explicit `build` script. The build uses the repository TypeScript base config

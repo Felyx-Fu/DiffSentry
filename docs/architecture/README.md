@@ -1,6 +1,6 @@
-# AgentGuard Architecture Overview
+# DiffSentry Architecture Overview
 
-This page is the contributor-facing map of AgentGuard v0.1. The locked
+This page is the contributor-facing map of DiffSentry v0.1. The locked
 architecture specification remains the normative source for package boundaries
 and required behavior: [02-ARCHITECTURE.md](../../02-ARCHITECTURE.md). Security
 constraints are defined in
@@ -8,7 +8,7 @@ constraints are defined in
 
 ## Shape of the system
 
-AgentGuard is a TypeScript monorepo with a core-first hexagonal architecture.
+DiffSentry is a TypeScript monorepo with a core-first hexagonal architecture.
 The core expresses domain and application policy through injected ports. Node,
 CLI, and GitHub-specific code stays at the outside of that boundary.
 
@@ -36,13 +36,13 @@ import rule.
 
 | Package | Responsibility | Boundary |
 | --- | --- | --- |
-| `@agentguard/contracts` | Public data contracts for projects, changes, evidence, findings, verifications, reports, configuration, and verdicts. | No Node APIs, process execution, Git access, or business behavior. |
-| `@agentguard/core` | Pure domain policies, application use cases, verification planning, finding aggregation, risk scoring, verdict calculation, and ports. | May depend on contracts; must not depend on Node APIs, CLI packages, SDKs, UI frameworks, or cloud services. |
-| `@agentguard/runtime-node` | Node adapters for Git, filesystem, process execution, environment, and clock capabilities. | The Node I/O boundary; it is injected into core rather than constructed by core. |
-| `@agentguard/rules` | Deterministic built-in rule metadata, matching, evidence generation, and registry. | Consumes contracts and core ports; returns structured findings. |
-| `@agentguard/config` | JSON-only configuration loading, schema validation, defaults, and deterministic merging. | Configuration is data, not executable JavaScript or TypeScript. |
-| `@agentguard/report` | Terminal, JSON, and Markdown presentation. | Reads the assembled report; does not calculate risk or execute processes. |
-| `@agentguard/cli` | CLI composition root and command wiring for core, runtime, rules, config, and report packages. | Owns command-facing composition, not core policy. |
+| `@felyx-fu/diffsentry-contracts` | Public data contracts for projects, changes, evidence, findings, verifications, reports, configuration, and verdicts. | No Node APIs, process execution, Git access, or business behavior. |
+| `@felyx-fu/diffsentry-core` | Pure domain policies, application use cases, verification planning, finding aggregation, risk scoring, verdict calculation, and ports. | May depend on contracts; must not depend on Node APIs, CLI packages, SDKs, UI frameworks, or cloud services. |
+| `@felyx-fu/diffsentry-runtime-node` | Node adapters for Git, filesystem, process execution, environment, and clock capabilities. | The Node I/O boundary; it is injected into core rather than constructed by core. |
+| `@felyx-fu/diffsentry-rules` | Deterministic built-in rule metadata, matching, evidence generation, and registry. | Consumes contracts and core ports; returns structured findings. |
+| `@felyx-fu/diffsentry-config` | JSON-only configuration loading, schema validation, defaults, and deterministic merging. | Configuration is data, not executable JavaScript or TypeScript. |
+| `@felyx-fu/diffsentry-report` | Terminal, JSON, and Markdown presentation. | Reads the assembled report; does not calculate risk or execute processes. |
+| `@felyx-fu/diffsentry` | CLI composition root and command wiring for core, runtime, rules, config, and report packages. | Owns command-facing composition, not core policy. |
 | `apps/github-action` | GitHub event and workflow adapters around the same engine. | Reuses the core path and remains least-privilege; it does not reimplement verification logic. |
 
 ## Dependency direction
@@ -62,7 +62,7 @@ github-action ────────→ core, runtime-node, rules, config, rep
 
 In particular:
 
-- `contracts` has no dependency on another AgentGuard package;
+- `contracts` has no dependency on another DiffSentry package;
 - core code does not import `node:*` or application packages;
 - adapters may depend on core and contracts, never the reverse;
 - composition roots are the only place that assembles concrete adapters;
@@ -102,7 +102,7 @@ The recognized v0.1 verification intents are `test`, `lint`, `typecheck`, and
 `build`. Verification results are recorded as structured data, including status,
 exit code, duration, bounded stdout/stderr, truncation, and the command that was
 actually resolved. A verifier result with status `error` is part of the risk
-model; an AgentGuard internal error follows the separate internal-error path.
+model; a DiffSentry internal error follows the separate internal-error path.
 
 ## Ports and composition
 
@@ -124,7 +124,7 @@ visible in the composition code.
 
 ## Determinism and trust boundaries
 
-For the same repository contents, Git references, AgentGuard version, config,
+For the same repository contents, Git references, DiffSentry version, config,
 and relevant tool outputs, the engine must produce the same findings, score, and
 verdict. v0.1 does not use network-dependent scoring or LLM scoring.
 

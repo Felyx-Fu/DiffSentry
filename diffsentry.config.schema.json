@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "agentguard.config.schema.json",
-  "title": "AgentGuard v0.1 configuration",
-  "description": "JSON data configuration for AgentGuard verification and rule policy.",
+  "$id": "diffsentry.config.schema.json",
+  "title": "DiffSentry v0.1 configuration",
+  "description": "JSON data configuration for DiffSentry verification and rule policy.",
   "type": "object",
   "additionalProperties": false,
   "properties": {

@@ -1,11 +1,11 @@
-# Contributing to AgentGuard
+# Contributing to DiffSentry
 
-Thank you for helping improve AgentGuard. Contributions should preserve the
+Thank you for helping improve DiffSentry. Contributions should preserve the
 v0.1 scope, deterministic behavior, and repository trust boundaries.
 
 ## Local setup
 
-AgentGuard targets Node.js 24 LTS, pnpm, TypeScript, Biome, Vitest, and
+DiffSentry targets Node.js 24 LTS, pnpm, TypeScript, Biome, Vitest, and
 Turborepo. Use a supported Node 24 installation before running the checks.
 
 From the repository root:

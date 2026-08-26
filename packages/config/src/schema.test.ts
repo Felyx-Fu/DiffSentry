@@ -1,11 +1,11 @@
 import { readFile } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
 import {
-  AGENTGUARD_CONFIG_FILE_NAME,
-  AGENTGUARD_CONFIG_SCHEMA_FILE_NAME,
   CONFIG_RULE_ID_PATTERN,
   CONFIG_SEVERITIES,
   CONFIG_VERIFICATION_KEYS,
+  DIFFSENTRY_CONFIG_FILE_NAME,
+  DIFFSENTRY_CONFIG_SCHEMA_FILE_NAME,
 } from "./schema.js";
 
 interface JsonSchemaDocument {
@@ -18,7 +18,7 @@ interface JsonSchemaDocument {
 }
 
 const schemaFile = new URL(
-  "../../../agentguard.config.schema.json",
+  "../../../diffsentry.config.schema.json",
   import.meta.url,
 );
 
@@ -40,18 +40,18 @@ const invalidExamples = [
   { rules: { "security.secret-exposure": { severity: "urgent" } } },
 ] as const;
 
-describe("AgentGuard JSON configuration schema", () => {
+describe("DiffSentry JSON configuration schema", () => {
   it("publishes the JSON-only schema and stable configuration constants", async () => {
     const schema = JSON.parse(
       await readFile(schemaFile, "utf8"),
     ) as JsonSchemaDocument;
 
-    expect(AGENTGUARD_CONFIG_FILE_NAME).toBe("agentguard.config.json");
-    expect(AGENTGUARD_CONFIG_SCHEMA_FILE_NAME).toBe(
-      "agentguard.config.schema.json",
+    expect(DIFFSENTRY_CONFIG_FILE_NAME).toBe("diffsentry.config.json");
+    expect(DIFFSENTRY_CONFIG_SCHEMA_FILE_NAME).toBe(
+      "diffsentry.config.schema.json",
     );
     expect(schema.$schema).toBe("https://json-schema.org/draft/2020-12/schema");
-    expect(schema.$id).toBe(AGENTGUARD_CONFIG_SCHEMA_FILE_NAME);
+    expect(schema.$id).toBe(DIFFSENTRY_CONFIG_SCHEMA_FILE_NAME);
     expect(schema.type).toBe("object");
     expect(schema.additionalProperties).toBe(false);
     expect(Object.keys(schema.properties)).toEqual([

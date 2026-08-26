@@ -1,11 +1,14 @@
 import { readFile } from "node:fs/promises";
-import { calculateRiskScore, calculateVerdict } from "@agentguard/core";
+import {
+  calculateRiskScore,
+  calculateVerdict,
+} from "@felyx-fu/diffsentry-core";
 import {
   authWithoutTestsRule,
   runtimeDependencyAddedRule,
   sourceWithoutTestsRule,
   workflowPermissionChangeRule,
-} from "@agentguard/rules";
+} from "@felyx-fu/diffsentry-rules";
 import { describe, expect, it } from "vitest";
 
 type Scenario = "review" | "fail";

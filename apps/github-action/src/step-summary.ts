@@ -1,12 +1,12 @@
 import { appendFile } from "node:fs/promises";
-import { renderMarkdownReport } from "@agentguard/report";
+import { renderMarkdownReport } from "@felyx-fu/diffsentry-report";
 import type { GitHubActionCheckResult } from "./check.js";
 
 export type GitHubStepSummaryErrorCode = "missing-path" | "write-failed";
 
 const ERROR_MESSAGES: Readonly<Record<GitHubStepSummaryErrorCode, string>> = {
   "missing-path": "GITHUB_STEP_SUMMARY is required to publish a report",
-  "write-failed": "The AgentGuard Markdown summary could not be written",
+  "write-failed": "The DiffSentry Markdown summary could not be written",
 };
 
 export class GitHubStepSummaryError extends Error {

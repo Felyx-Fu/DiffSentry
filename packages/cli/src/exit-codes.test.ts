@@ -6,7 +6,7 @@ import {
 } from "./exit-codes.js";
 
 describe("mapCliExitCode", () => {
-  it("maps AgentGuard verdicts to CLI process codes", () => {
+  it("maps DiffSentry verdicts to CLI process codes", () => {
     const outcomes: readonly [CliExitOutcome, number][] = [
       [{ kind: "verdict", verdict: "pass" }, 0],
       [{ kind: "verdict", verdict: "review" }, 1],

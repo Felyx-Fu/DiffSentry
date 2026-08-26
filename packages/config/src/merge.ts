@@ -12,7 +12,7 @@ export interface ConfigLayer {
   readonly thresholds?: Partial<ValidatedRiskThresholds>;
 }
 
-export interface MergedAgentGuardConfig {
+export interface MergedDiffSentryConfig {
   readonly verification: Required<ValidatedVerificationConfig>;
   readonly rules: Readonly<Record<string, ValidatedRuleOverride>>;
   readonly thresholds: ValidatedRiskThresholds;
@@ -66,7 +66,7 @@ function mergeRules(
 export function mergeConfig(
   configLayer: ConfigLayer = {},
   cliLayer: ConfigLayer = {},
-): MergedAgentGuardConfig {
+): MergedDiffSentryConfig {
   const verification = {
     build:
       cliLayer.verification?.build ??
@@ -100,7 +100,7 @@ export function mergeConfig(
 
   if (!validateConfig(merged)) {
     throw new RangeError(
-      "Merged configuration must satisfy the AgentGuard v0.1 schema",
+      "Merged configuration must satisfy the DiffSentry v0.1 schema",
     );
   }
 

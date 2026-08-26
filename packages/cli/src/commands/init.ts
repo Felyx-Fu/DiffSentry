@@ -1,9 +1,9 @@
 import { access, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import {
-  AGENTGUARD_CONFIG_FILE_NAME,
+  DIFFSENTRY_CONFIG_FILE_NAME,
   validateConfig,
-} from "@agentguard/config";
+} from "@felyx-fu/diffsentry-config";
 
 export const MINIMAL_CONFIG_TEXT = "{}\n";
 
@@ -59,7 +59,7 @@ export async function runInitCommand(
   options: InitCommandOptions = {},
 ): Promise<InitCommandOutcome> {
   const cwd = options.cwd ?? process.cwd();
-  const path = join(cwd, AGENTGUARD_CONFIG_FILE_NAME);
+  const path = join(cwd, DIFFSENTRY_CONFIG_FILE_NAME);
   const fileSystem = options.fileSystem ?? DEFAULT_FILE_SYSTEM;
 
   if (await fileSystem.exists(path)) {

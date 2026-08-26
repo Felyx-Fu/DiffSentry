@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import type { ChangeSet } from "./change.js";
-import type { AgentGuardConfig } from "./config.js";
+import type { DiffSentryConfig } from "./config.js";
 import type { Evidence } from "./evidence.js";
 import type { Finding } from "./finding.js";
 import type { ProjectContext } from "./project.js";
-import type { AgentGuardReport } from "./report.js";
+import type { DiffSentryReport } from "./report.js";
 import { REPORT_SCHEMA_VERSION } from "./report.js";
 import type { VerificationResult } from "./verification.js";
 
@@ -72,7 +72,7 @@ describe("contracts", () => {
       },
     };
 
-    const report: AgentGuardReport = {
+    const report: DiffSentryReport = {
       version: "0.1.0",
       schemaVersion: REPORT_SCHEMA_VERSION,
       project: {
@@ -99,7 +99,7 @@ describe("contracts", () => {
   });
 
   it("represents partial JSON configuration overrides", () => {
-    const config: AgentGuardConfig = {
+    const config: DiffSentryConfig = {
       verification: {
         test: true,
         typecheck: false,

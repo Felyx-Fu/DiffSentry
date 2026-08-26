@@ -8,7 +8,7 @@ describe("NodeFileSystem.exists", () => {
   const fileSystem = new NodeFileSystem();
 
   it("returns true for an existing file", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "agentguard-fs-"));
+    const directory = await mkdtemp(join(tmpdir(), "diffsentry-fs-"));
     const filePath = join(directory, "present.txt");
 
     try {
@@ -20,7 +20,7 @@ describe("NodeFileSystem.exists", () => {
   });
 
   it("returns false for a missing file", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "agentguard-fs-"));
+    const directory = await mkdtemp(join(tmpdir(), "diffsentry-fs-"));
     const filePath = join(directory, "missing.txt");
 
     try {
@@ -31,9 +31,9 @@ describe("NodeFileSystem.exists", () => {
   });
 
   it("reads UTF-8 text without changing its contents", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "agentguard-fs-"));
+    const directory = await mkdtemp(join(tmpdir(), "diffsentry-fs-"));
     const filePath = join(directory, "text.txt");
-    const contents = "AgentGuard\n安全边界";
+    const contents = "DiffSentry\n安全边界";
 
     try {
       await writeFile(filePath, contents, "utf8");
@@ -44,7 +44,7 @@ describe("NodeFileSystem.exists", () => {
   });
 
   it("maps a missing read to a typed filesystem error", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "agentguard-fs-"));
+    const directory = await mkdtemp(join(tmpdir(), "diffsentry-fs-"));
     const filePath = join(directory, "missing.txt");
 
     try {
@@ -61,15 +61,15 @@ describe("NodeFileSystem.exists", () => {
   });
 
   it("finds a named file in an ancestor directory", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "agentguard-fs-"));
+    const directory = await mkdtemp(join(tmpdir(), "diffsentry-fs-"));
     const nestedDirectory = join(directory, "nested", "deeper");
-    const markerPath = join(directory, "agentguard.marker");
+    const markerPath = join(directory, "diffsentry.marker");
 
     try {
       await mkdir(nestedDirectory, { recursive: true });
       await writeFile(markerPath, "marker", "utf8");
       await expect(
-        fileSystem.findUp(nestedDirectory, "agentguard.marker"),
+        fileSystem.findUp(nestedDirectory, "diffsentry.marker"),
       ).resolves.toBe(markerPath);
     } finally {
       await rm(directory, { recursive: true, force: true });
@@ -77,13 +77,13 @@ describe("NodeFileSystem.exists", () => {
   });
 
   it("returns null when the upward search reaches the filesystem root", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "agentguard-fs-"));
+    const directory = await mkdtemp(join(tmpdir(), "diffsentry-fs-"));
 
     try {
       await expect(
         fileSystem.findUp(
           directory,
-          "agentguard-file-that-does-not-exist-6c3e1b.marker",
+          "diffsentry-file-that-does-not-exist-6c3e1b.marker",
         ),
       ).resolves.toBeNull();
     } finally {

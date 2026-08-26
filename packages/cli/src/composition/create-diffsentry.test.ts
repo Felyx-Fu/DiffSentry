@@ -1,10 +1,10 @@
 import type {
-  AgentGuardReportAssemblyInput,
   CheckRepositoryDependencies,
-} from "@agentguard/core";
-import { CheckRepositoryUseCase } from "@agentguard/core";
+  DiffSentryReportAssemblyInput,
+} from "@felyx-fu/diffsentry-core";
+import { CheckRepositoryUseCase } from "@felyx-fu/diffsentry-core";
 import { describe, expect, it } from "vitest";
-import { createAgentGuard } from "./create-agentguard.js";
+import { createDiffSentry } from "./create-diffsentry.js";
 
 function createTestRuntime(): CheckRepositoryDependencies {
   return {
@@ -29,7 +29,7 @@ function createTestRuntime(): CheckRepositoryDependencies {
   };
 }
 
-function createReportInput(): AgentGuardReportAssemblyInput {
+function createReportInput(): DiffSentryReportAssemblyInput {
   return {
     changes: {
       baseRef: "HEAD~1",
@@ -51,17 +51,17 @@ function createReportInput(): AgentGuardReportAssemblyInput {
   };
 }
 
-describe("createAgentGuard", () => {
+describe("createDiffSentry", () => {
   it("wires injected runtime, merged configuration, rules, and report", () => {
     const runtime = createTestRuntime();
     const report = {
-      assemble: (input: AgentGuardReportAssemblyInput) => ({
+      assemble: (input: DiffSentryReportAssemblyInput) => ({
         ...input,
         schemaVersion: 1 as const,
       }),
     };
 
-    const composition = createAgentGuard({
+    const composition = createDiffSentry({
       cli: { verification: { build: true } },
       config: { verification: { build: false, lint: false } },
       report,
@@ -89,7 +89,7 @@ describe("createAgentGuard", () => {
   });
 
   it("provides a schema-versioned default report assembler", () => {
-    const composition = createAgentGuard();
+    const composition = createDiffSentry();
 
     expect(composition.report.assemble(createReportInput())).toMatchObject({
       schemaVersion: 1,

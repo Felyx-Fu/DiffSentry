@@ -1,14 +1,14 @@
 import type {
-  AgentGuardReportAssemblyInput,
-  AssembledAgentGuardReport,
-} from "@agentguard/core";
+  AssembledDiffSentryReport,
+  DiffSentryReportAssemblyInput,
+} from "@felyx-fu/diffsentry-core";
 import { describe, expect, it } from "vitest";
 import { type GitHubActionCheckInput, runGitHubActionCheck } from "./check.js";
 import { createGitHubActionComposition } from "./composition.js";
 import { parseGitHubEventContext } from "./event-context.js";
 
-function createReport(): AssembledAgentGuardReport {
-  const input: AgentGuardReportAssemblyInput = {
+function createReport(): AssembledDiffSentryReport {
+  const input: DiffSentryReportAssemblyInput = {
     changes: { baseRef: "base-sha", files: [], headRef: "head-sha" },
     findings: [],
     project: {

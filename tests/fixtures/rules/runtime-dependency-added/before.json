@@ -1,5 +1,5 @@
 {
-  "name": "agentguard-fixture",
+  "name": "diffsentry-fixture",
   "dependencies": {
     "shared": "^1.0.0"
   },

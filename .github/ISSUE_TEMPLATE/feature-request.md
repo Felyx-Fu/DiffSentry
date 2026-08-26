@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Propose a focused, evidence-backed AgentGuard improvement
+about: Propose a focused, evidence-backed DiffSentry improvement
 title: "[Feature]: "
 labels: "enhancement,needs-triage"
 assignees: ""
@@ -30,7 +30,7 @@ criteria rather than prescribing an implementation.
 
 ## Alternatives considered
 
-- Existing AgentGuard capability or configuration:
+- Existing DiffSentry capability or configuration:
 - Smaller change:
 - External tool or workflow workaround:
 - Why those alternatives are insufficient:

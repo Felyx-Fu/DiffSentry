@@ -1,7 +1,7 @@
 import type {
-  AssembledAgentGuardReport,
+  AssembledDiffSentryReport,
   CheckRepositoryUseCase,
-} from "@agentguard/core";
+} from "@felyx-fu/diffsentry-core";
 import type { GitHubActionComposition } from "./composition.js";
 
 export interface GitHubActionCheckInput {
@@ -15,7 +15,7 @@ export interface GitHubActionCheckInput {
 }
 
 export interface GitHubActionCheckResult {
-  readonly report: AssembledAgentGuardReport;
+  readonly report: AssembledDiffSentryReport;
 }
 
 export interface GitHubActionCheckPort {

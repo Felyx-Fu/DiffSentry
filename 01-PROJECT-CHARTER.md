@@ -1,8 +1,8 @@
-# AgentGuard Project Charter
+# DiffSentry Project Charter
 
 ## 1. Product definition
 
-AgentGuard is a local-first verification engine for code changes, especially AI-generated changes.
+DiffSentry is a local-first verification engine for code changes, especially AI-generated changes.
 
 It answers four questions:
 
@@ -27,13 +27,13 @@ It answers four questions:
 Primary command:
 
 ```bash
-npx agentguard check
+npx diffsentry check
 ```
 
 Expected output shape:
 
 ```text
-AgentGuard
+DiffSentry
 
 ✓ Node.js project detected
 ✓ TypeScript detected
@@ -55,7 +55,7 @@ Verdict: REVIEW REQUIRED
 
 ### Normative v0.1 Risk Model
 
-The following Risk Model is normative for AgentGuard v0.1. A finding's
+The following Risk Model is normative for DiffSentry v0.1. A finding's
 confidence does not affect its risk contribution.
 
 Severity weights:
@@ -100,7 +100,7 @@ score >= fail         => FAIL
 ```
 
 A `VerificationResult` with status `error` is a verification result and uses
-the fixed penalty above. An AgentGuard internal error is a separate failure
+the fixed penalty above. A DiffSentry internal error is a separate failure
 path: it does not enter `RiskScore` and uses the existing internal-error path
 and CLI exit code 3.
 
@@ -132,7 +132,7 @@ The OSS core must remain genuinely useful.
 ## 5. Success criteria for v0.1
 
 The release is successful when a developer can:
-- install or run AgentGuard with one command;
+- install or run DiffSentry with one command;
 - check a changed Node/TypeScript repository;
 - receive deterministic verification results;
 - receive explainable findings with evidence;
@@ -141,7 +141,7 @@ The release is successful when a developer can:
 
 ## 6. Non-goals
 
-AgentGuard v0.1 is not:
+DiffSentry v0.1 is not:
 - an AI code reviewer;
 - a SAST replacement;
 - a full CI platform;

@@ -1,4 +1,4 @@
-# AgentGuard v0.1 Roadmap
+# DiffSentry v0.1 Roadmap
 
 ## P0 Foundation
 Repository, toolchain, CI, governance, ADRs.

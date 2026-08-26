@@ -1,4 +1,4 @@
-import type { AssembledAgentGuardReport } from "@agentguard/core";
+import type { AssembledDiffSentryReport } from "@felyx-fu/diffsentry-core";
 import { describe, expect, it } from "vitest";
 import {
   GitHubActionFailOnError,
@@ -7,7 +7,7 @@ import {
   resolveGitHubActionStatus,
 } from "./status-behavior.js";
 
-function resultWithVerdict(verdict: AssembledAgentGuardReport["verdict"]) {
+function resultWithVerdict(verdict: AssembledDiffSentryReport["verdict"]) {
   return {
     report: {
       changes: { baseRef: "base", files: [], headRef: "head" },

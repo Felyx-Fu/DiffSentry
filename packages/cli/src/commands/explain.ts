@@ -1,4 +1,4 @@
-import { BUILT_IN_RULES, type RuleMetadata } from "@agentguard/rules";
+import { BUILT_IN_RULES, type RuleMetadata } from "@felyx-fu/diffsentry-rules";
 
 interface ExplainableRuleRegistration {
   readonly metadata: RuleMetadata;

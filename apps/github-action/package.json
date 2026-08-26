@@ -1,5 +1,5 @@
 {
-  "name": "@agentguard/github-action",
+  "name": "@felyx-fu/diffsentry-github-action",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Felyx-Fu/AgentGuard.git",
+    "url": "git+https://github.com/Felyx-Fu/DiffSentry.git",
     "directory": "apps/github-action"
   },
   "bugs": {
-    "url": "https://github.com/Felyx-Fu/AgentGuard/issues"
+    "url": "https://github.com/Felyx-Fu/DiffSentry/issues"
   },
-  "homepage": "https://github.com/Felyx-Fu/AgentGuard#readme",
+  "homepage": "https://github.com/Felyx-Fu/DiffSentry#readme",
   "files": [
     "README.md",
     "LICENSE",
@@ -27,11 +27,11 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@agentguard/config": "workspace:*",
-    "@agentguard/core": "workspace:*",
-    "@agentguard/report": "workspace:*",
-    "@agentguard/rules": "workspace:*",
-    "@agentguard/runtime-node": "workspace:*"
+    "@felyx-fu/diffsentry-config": "workspace:*",
+    "@felyx-fu/diffsentry-core": "workspace:*",
+    "@felyx-fu/diffsentry-report": "workspace:*",
+    "@felyx-fu/diffsentry-rules": "workspace:*",
+    "@felyx-fu/diffsentry-runtime-node": "workspace:*"
   },
   "devDependencies": {
     "vite": "8.2.2"

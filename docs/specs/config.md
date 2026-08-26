@@ -1,7 +1,7 @@
-# AgentGuard v0.1 JSON configuration
+# DiffSentry v0.1 JSON configuration
 
 This document describes the complete v0.1 configuration surface. The checked-in
-JSON Schema is [agentguard.config.schema.json](../../agentguard.config.schema.json);
+JSON Schema is [diffsentry.config.schema.json](../../diffsentry.config.schema.json);
 the runtime validator additionally enforces the cross-field threshold rule.
 
 ## Configuration files
@@ -9,14 +9,14 @@ the runtime validator additionally enforces the cross-field threshold rule.
 The only supported configuration filename is:
 
 ```text
-agentguard.config.json
+diffsentry.config.json
 ```
 
-The schema filename is `agentguard.config.schema.json`. v0.1 accepts JSON data
+The schema filename is `diffsentry.config.schema.json`. v0.1 accepts JSON data
 only. These are intentionally unsupported:
 
-- `agentguard.config.ts`;
-- `agentguard.config.js`;
+- `diffsentry.config.ts`;
+- `diffsentry.config.js`;
 - dynamic imports of configuration;
 - executable configuration hooks or functions.
 
@@ -143,7 +143,7 @@ An omitted field inherits the following immutable defaults:
 }
 ```
 
-An empty `agentguard.config.json` containing `{}` is therefore a valid way to
+An empty `diffsentry.config.json` containing `{}` is therefore a valid way to
 select the default policy.
 
 ## Precedence
@@ -175,7 +175,7 @@ including `0 <= review < fail <= 100`.
 ## Loading and validation behavior
 
 The config package exposes upward lookup for the fixed
-`agentguard.config.json` filename. The current check command also supports an
+`diffsentry.config.json` filename. The current check command also supports an
 explicit configuration path through its composition API. Whichever loading
 path is used, the contents go through JSON parsing and schema validation before
 they become a configuration layer.

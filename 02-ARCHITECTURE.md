@@ -1,8 +1,8 @@
-# AgentGuard Architecture
+# DiffSentry Architecture
 
 ## 1. Architecture style
 
-AgentGuard uses a TypeScript monorepo with a core-first hexagonal architecture.
+DiffSentry uses a TypeScript monorepo with a core-first hexagonal architecture.
 
 ## 2. Package layout
 
@@ -22,21 +22,21 @@ packages/
 
 ## 2.1 Published package layout (v0.1)
 
-The canonical repository identity is `Felyx-Fu/AgentGuard`:
+The canonical repository identity is `Felyx-Fu/DiffSentry`:
 
-- repository: `git+https://github.com/Felyx-Fu/AgentGuard.git`;
-- homepage: `https://github.com/Felyx-Fu/AgentGuard#readme`;
-- issues: `https://github.com/Felyx-Fu/AgentGuard/issues`.
+- repository: `git+https://github.com/Felyx-Fu/DiffSentry.git`;
+- homepage: `https://github.com/Felyx-Fu/DiffSentry#readme`;
+- issues: `https://github.com/Felyx-Fu/DiffSentry/issues`.
 
 The seven public npm packages are:
 
-- `@agentguard/contracts`;
-- `@agentguard/core`;
-- `@agentguard/runtime-node`;
-- `@agentguard/rules`;
-- `@agentguard/config`;
-- `@agentguard/report`;
-- `@agentguard/cli`.
+- `@felyx-fu/diffsentry-contracts`;
+- `@felyx-fu/diffsentry-core`;
+- `@felyx-fu/diffsentry-runtime-node`;
+- `@felyx-fu/diffsentry-rules`;
+- `@felyx-fu/diffsentry-config`;
+- `@felyx-fu/diffsentry-report`;
+- `@felyx-fu/diffsentry`.
 
 Each public package is an ESM-only TypeScript library compiled locally with
 `tsc` from `src/**/*.ts` to `dist/**/*.js` and declaration files. It exposes
@@ -50,7 +50,7 @@ remains `private: true` and continues to use its existing Action-only bundled
 
 ## 3. Responsibilities
 
-### `@agentguard/contracts`
+### `@felyx-fu/diffsentry-contracts`
 Cross-package public data contracts only.
 
 Contains:
@@ -60,7 +60,7 @@ Contains:
 - Finding
 - VerificationResult
 - Verdict
-- AgentGuardReport
+- DiffSentryReport
 - configuration DTOs
 
 Must not:
@@ -69,7 +69,7 @@ Must not:
 - read Git;
 - implement business behavior.
 
-### `@agentguard/core`
+### `@felyx-fu/diffsentry-core`
 Pure application/domain behavior.
 
 Contains:
@@ -88,7 +88,7 @@ Must not import:
 - UI frameworks
 - cloud services
 
-### `@agentguard/runtime-node`
+### `@felyx-fu/diffsentry-runtime-node`
 Node.js adapters.
 
 Contains:
@@ -100,22 +100,22 @@ Contains:
 
 This package is an I/O boundary.
 
-### `@agentguard/rules`
+### `@felyx-fu/diffsentry-rules`
 Built-in deterministic rules.
 
 Contains rule metadata, matching logic, evidence generation, registry.
 
 Rules consume contracts/core ports and return findings.
 
-### `@agentguard/config`
+### `@felyx-fu/diffsentry-config`
 Loads and validates JSON configuration.
 
 v0.1 configuration format:
-`agentguard.config.json`
+`diffsentry.config.json`
 
 TypeScript/JavaScript executable configuration is intentionally unsupported in v0.1.
 
-### `@agentguard/report`
+### `@felyx-fu/diffsentry-report`
 Presentation-only rendering:
 - terminal
 - JSON
@@ -123,7 +123,7 @@ Presentation-only rendering:
 
 No risk calculation belongs here.
 
-### `@agentguard/cli`
+### `@felyx-fu/diffsentry`
 CLI composition root and commands.
 
 It wires:
@@ -214,11 +214,11 @@ Core behavior receives these capabilities explicitly.
 Given the same:
 - repository contents;
 - Git refs;
-- AgentGuard version;
+- DiffSentry version;
 - config;
 - relevant tool outputs;
 
-AgentGuard must produce the same:
+DiffSentry must produce the same:
 - findings;
 - score;
 - verdict.
@@ -270,7 +270,7 @@ score >= fail          => FAIL
 ```
 
 A verification result with status `error` is included as a verification
-penalty. An AgentGuard internal error is not a `VerificationResult`, does not
+penalty. A DiffSentry internal error is not a `VerificationResult`, does not
 enter `RiskScore`, and follows the internal-error path with CLI exit code 3.
 
 ## 9. Evidence model

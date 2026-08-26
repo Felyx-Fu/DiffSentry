@@ -1,6 +1,6 @@
 export type RiskSeverity = "info" | "low" | "medium" | "high" | "critical";
 
-/** Fixed AgentGuard v0.1 severity weights; configuration cannot override them here. */
+/** Fixed DiffSentry v0.1 severity weights; configuration cannot override them here. */
 export const SEVERITY_WEIGHTS: Readonly<Record<RiskSeverity, number>> =
   Object.freeze({
     critical: 50,

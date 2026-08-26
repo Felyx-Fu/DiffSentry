@@ -20,15 +20,15 @@ function createFileSystem(result: string | null): {
 describe("findConfigFile", () => {
   it("finds the fixed JSON config filename from the start hierarchy", async () => {
     const { calls, fileSystem } = createFileSystem(
-      "C:/repository/agentguard.config.json",
+      "C:/repository/diffsentry.config.json",
     );
 
     await expect(
       findConfigFile(fileSystem, "C:/repository/packages/app"),
-    ).resolves.toBe("C:/repository/agentguard.config.json");
+    ).resolves.toBe("C:/repository/diffsentry.config.json");
     expect(calls).toEqual([
       {
-        fileName: "agentguard.config.json",
+        fileName: "diffsentry.config.json",
         startDirectory: "C:/repository/packages/app",
       },
     ]);

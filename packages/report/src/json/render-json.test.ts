@@ -1,8 +1,8 @@
-import type { AgentGuardReport } from "@agentguard/contracts";
+import type { DiffSentryReport } from "@felyx-fu/diffsentry-contracts";
 import { describe, expect, it } from "vitest";
 import { renderJsonReport } from "./render-json.js";
 
-const report: AgentGuardReport = {
+const report: DiffSentryReport = {
   changes: {
     baseRef: "main",
     files: [],

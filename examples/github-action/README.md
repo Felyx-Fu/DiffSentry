@@ -1,6 +1,6 @@
-# AgentGuard workflow example
+# DiffSentry workflow example
 
-`agentguard.yml` is the read-only, in-repository example for AgentGuard v0.1.
+`diffsentry.yml` is the read-only, in-repository example for DiffSentry v0.1.
 It checks pull-request and `main` push events, grants only `contents: read`,
 and uses the Action inputs currently defined in `apps/github-action/action.yml`.
 

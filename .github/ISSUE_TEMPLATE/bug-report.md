@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a reproducible AgentGuard problem without sharing sensitive data
+about: Report a reproducible DiffSentry problem without sharing sensitive data
 title: "[Bug]: "
 labels: "bug,needs-triage"
 assignees: ""
@@ -12,7 +12,7 @@ Describe the observed problem in one or two sentences.
 
 ## Environment
 
-- AgentGuard version or commit:
+- DiffSentry version or commit:
 - Operating system and version:
 - Node.js version:
 - pnpm version (if applicable):
@@ -34,7 +34,7 @@ sensitive content, replace it with a clear placeholder such as `<redacted>`.
 
 ## Expected behavior
 
-What should AgentGuard have done? Include the expected verdict, report field,
+What should DiffSentry have done? Include the expected verdict, report field,
 status, or exit code when applicable.
 
 ## Actual behavior

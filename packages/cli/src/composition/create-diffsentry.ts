@@ -1,38 +1,38 @@
 import {
   type ConfigLayer,
-  type MergedAgentGuardConfig,
+  type MergedDiffSentryConfig,
   mergeConfig,
-} from "@agentguard/config";
+} from "@felyx-fu/diffsentry-config";
 import {
-  type AgentGuardReportAssemblyInput,
-  type AssembledAgentGuardReport,
-  assembleAgentGuardReport,
+  type AssembledDiffSentryReport,
+  assembleDiffSentryReport,
   type CheckRepositoryDependencies,
   CheckRepositoryUseCase,
-} from "@agentguard/core";
-import { BUILT_IN_RULES } from "@agentguard/rules";
+  type DiffSentryReportAssemblyInput,
+} from "@felyx-fu/diffsentry-core";
+import { BUILT_IN_RULES } from "@felyx-fu/diffsentry-rules";
 import {
   NodeFileSystem,
   NodeGitProvider,
   NodeProcessRunner,
   SystemClock,
-} from "@agentguard/runtime-node";
+} from "@felyx-fu/diffsentry-runtime-node";
 
-export interface AgentGuardReportPort {
-  assemble(input: AgentGuardReportAssemblyInput): AssembledAgentGuardReport;
+export interface DiffSentryReportPort {
+  assemble(input: DiffSentryReportAssemblyInput): AssembledDiffSentryReport;
 }
 
-export interface AgentGuardCompositionOptions {
+export interface DiffSentryCompositionOptions {
   readonly config?: ConfigLayer;
   readonly cli?: ConfigLayer;
   readonly runtime?: Partial<CheckRepositoryDependencies>;
-  readonly report?: AgentGuardReportPort;
+  readonly report?: DiffSentryReportPort;
 }
 
-export interface AgentGuardComposition {
+export interface DiffSentryComposition {
   readonly checker: CheckRepositoryUseCase;
-  readonly config: MergedAgentGuardConfig;
-  readonly report: AgentGuardReportPort;
+  readonly config: MergedDiffSentryConfig;
+  readonly report: DiffSentryReportPort;
   readonly rules: typeof BUILT_IN_RULES;
   readonly runtime: CheckRepositoryDependencies;
 }
@@ -46,13 +46,13 @@ function createDefaultRuntime(): CheckRepositoryDependencies {
   };
 }
 
-const DEFAULT_REPORT: AgentGuardReportPort = {
-  assemble: assembleAgentGuardReport,
+const DEFAULT_REPORT: DiffSentryReportPort = {
+  assemble: assembleDiffSentryReport,
 };
 
-export function createAgentGuard(
-  options: AgentGuardCompositionOptions = {},
-): AgentGuardComposition {
+export function createDiffSentry(
+  options: DiffSentryCompositionOptions = {},
+): DiffSentryComposition {
   const defaultRuntime = createDefaultRuntime();
   const runtime: CheckRepositoryDependencies = {
     clock: options.runtime?.clock ?? defaultRuntime.clock,

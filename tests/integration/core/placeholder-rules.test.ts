@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assembleAgentGuardReport } from "../../../packages/core/src/application/report-assembler.js";
+import { assembleDiffSentryReport } from "../../../packages/core/src/application/report-assembler.js";
 import { calculateRiskScore } from "../../../packages/core/src/domain/risk/risk-score.js";
 import { calculateVerdict } from "../../../packages/core/src/domain/risk/verdict-thresholds.js";
 
@@ -7,7 +7,7 @@ describe("core pipeline with placeholder rules", () => {
   it("assembles a passing report when no rules produce findings", () => {
     const riskScore = calculateRiskScore({ findings: [], verifications: [] });
     const verdict = calculateVerdict(riskScore);
-    const report = assembleAgentGuardReport({
+    const report = assembleDiffSentryReport({
       changes: { baseRef: "HEAD", files: [], headRef: "WORKTREE" },
       findings: [],
       project: {

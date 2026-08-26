@@ -1,6 +1,6 @@
-# @agentguard/core
+# @felyx-fu/diffsentry-core
 
-Core application and domain policies for AgentGuard v0.1. This package
+Core application and domain policies for DiffSentry v0.1. This package
 contains deterministic finding aggregation, risk scoring, verdict calculation,
 verification planning, and the ports used by composition roots.
 
@@ -10,5 +10,5 @@ services, or LLM functionality.
 The published entry point is the package root:
 
 ```ts
-import { calculateRiskScore } from "@agentguard/core";
+import { calculateRiskScore } from "@felyx-fu/diffsentry-core";
 ```

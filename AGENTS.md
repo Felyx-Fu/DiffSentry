@@ -2,7 +2,7 @@
 
 ## Mission
 
-Develop AgentGuard v0.1 exactly according to the repository specifications.
+Develop DiffSentry v0.1 exactly according to the repository specifications.
 
 ## Mandatory rules
 

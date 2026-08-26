@@ -1,4 +1,4 @@
-# AgentGuard Task Index
+# DiffSentry Task Index
 
 Total atomic tasks in this pack: **194**.
 

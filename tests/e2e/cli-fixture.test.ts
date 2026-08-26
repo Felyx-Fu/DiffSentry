@@ -2,12 +2,12 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
-  createAgentGuard,
+  createDiffSentry,
   mapCliExitCode,
   renderCheckReport,
   runCheckCommand,
 } from "../../packages/cli/src/index.js";
-import type { AgentGuardReport } from "../../packages/contracts/src/index.js";
+import type { DiffSentryReport } from "../../packages/contracts/src/index.js";
 import { assembleChangeSet } from "../../packages/core/src/domain/change/change-set.js";
 import {
   calculateRiskScore,
@@ -24,7 +24,7 @@ describe("CLI fixture flow", () => {
       await fixture.writeFile(
         "package.json",
         JSON.stringify(
-          { name: "agentguard-e2e-fixture", packageManager: "pnpm@10.0.0" },
+          { name: "diffsentry-e2e-fixture", packageManager: "pnpm@10.0.0" },
           null,
           2,
         ),
@@ -44,7 +44,7 @@ describe("CLI fixture flow", () => {
       await fixture.writeFile("secret.ts", secretFixture);
       await fixture.stage("secret.ts");
 
-      const composition = createAgentGuard();
+      const composition = createDiffSentry();
       const check = await runCheckCommand({
         composition,
         cwd: fixture.directory,
@@ -66,7 +66,7 @@ describe("CLI fixture flow", () => {
         riskScore,
         composition.config.thresholds,
       );
-      const report: AgentGuardReport = {
+      const report: DiffSentryReport = {
         changes: assembleChangeSet(check.diff, "HEAD", "WORKTREE"),
         findings,
         project: {
@@ -84,7 +84,7 @@ describe("CLI fixture flow", () => {
       };
 
       expect(renderCheckReport(check.format, report)).toMatchInlineSnapshot(`
-        "AgentGuard 0.1.0
+        "DiffSentry 0.1.0
         Verdict: FAIL
         Risk score: 50/100
         Findings: 1

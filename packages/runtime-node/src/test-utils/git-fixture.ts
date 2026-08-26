@@ -24,17 +24,17 @@ export interface GitTestFixture {
 }
 
 export async function createGitTestFixture(): Promise<GitTestFixture> {
-  const directory = await mkdtemp(join(tmpdir(), "agentguard-git-fixture-"));
+  const directory = await mkdtemp(join(tmpdir(), "diffsentry-git-fixture-"));
 
   try {
     await runGit(["init", "--quiet", directory]);
-    await runGit(["-C", directory, "config", "user.name", "AgentGuard Test"]);
+    await runGit(["-C", directory, "config", "user.name", "DiffSentry Test"]);
     await runGit([
       "-C",
       directory,
       "config",
       "user.email",
-      "agentguard@example.invalid",
+      "diffsentry@example.invalid",
     ]);
   } catch (error) {
     await rm(directory, { recursive: true, force: true });

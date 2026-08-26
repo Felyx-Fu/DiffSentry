@@ -33,11 +33,11 @@ export type {
 } from "./commands/init.js";
 export { MINIMAL_CONFIG_TEXT, runInitCommand } from "./commands/init.js";
 export type {
-  AgentGuardComposition,
-  AgentGuardCompositionOptions,
-  AgentGuardReportPort,
-} from "./composition/create-agentguard.js";
-export { createAgentGuard } from "./composition/create-agentguard.js";
+  DiffSentryComposition,
+  DiffSentryCompositionOptions,
+  DiffSentryReportPort,
+} from "./composition/create-diffsentry.js";
+export { createDiffSentry } from "./composition/create-diffsentry.js";
 export type {
   CliExitOutcome,
   CliInternalErrorOutcome,

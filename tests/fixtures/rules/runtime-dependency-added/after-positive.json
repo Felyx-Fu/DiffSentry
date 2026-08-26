@@ -1,5 +1,5 @@
 {
-  "name": "agentguard-fixture",
+  "name": "diffsentry-fixture",
   "dependencies": {
     "jsonwebtoken": "^9.0.0",
     "shared": "^2.0.0"

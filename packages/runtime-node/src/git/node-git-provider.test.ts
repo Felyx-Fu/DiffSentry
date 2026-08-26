@@ -21,7 +21,7 @@ describe("NodeGitProvider.isRepository", () => {
   });
 
   it("returns false for a directory outside Git", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "agentguard-non-git-"));
+    const directory = await mkdtemp(join(tmpdir(), "diffsentry-non-git-"));
 
     try {
       await expect(gitProvider.isRepository(directory)).resolves.toBe(false);

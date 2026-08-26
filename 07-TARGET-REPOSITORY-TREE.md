@@ -1,11 +1,11 @@
 # Frozen Target Repository Tree
 
-This is the target layout for AgentGuard v0.1.
+This is the target layout for DiffSentry v0.1.
 
 Do not create every file on day one. Tasks create the structure incrementally. The tree defines ownership and final intended placement.
 
 ```text
-agentguard/
+diffsentry/
 ├─ .github/
 │  ├─ workflows/
 │  │  ├─ ci.yml
@@ -63,7 +63,7 @@ agentguard/
 │  │  │  │  ├─ rule.ts
 │  │  │  │  └─ verifier.ts
 │  │  │  ├─ errors/
-│  │  │  │  ├─ agentguard-error.ts
+│  │  │  │  ├─ diffsentry-error.ts
 │  │  │  │  └─ error-code.ts
 │  │  │  └─ index.ts
 │  │  └─ package.json
@@ -117,7 +117,7 @@ agentguard/
 │     │  │  ├─ init.ts
 │     │  │  └─ explain.ts
 │     │  ├─ composition/
-│     │  │  └─ create-agentguard.ts
+│     │  │  └─ create-diffsentry.ts
 │     │  ├─ main.ts
 │     │  └─ index.ts
 │     └─ package.json
@@ -153,7 +153,7 @@ agentguard/
 ├─ .editorconfig
 ├─ .gitignore
 ├─ .npmrc
-├─ agentguard.config.schema.json
+├─ diffsentry.config.schema.json
 ├─ AGENTS.md
 ├─ ARCHITECTURE.md
 ├─ ROADMAP.md

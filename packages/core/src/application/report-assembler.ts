@@ -57,7 +57,7 @@ export interface ReportVerification {
   readonly stderr: ReportVerificationOutputSummary;
 }
 
-export interface AgentGuardReportAssemblyInput {
+export interface DiffSentryReportAssemblyInput {
   readonly version: string;
   readonly project: ReportProjectContext;
   readonly changes: AssembledChangeSet;
@@ -67,14 +67,14 @@ export interface AgentGuardReportAssemblyInput {
   readonly verdict: RiskVerdict;
 }
 
-export interface AssembledAgentGuardReport
-  extends AgentGuardReportAssemblyInput {
+export interface AssembledDiffSentryReport
+  extends DiffSentryReportAssemblyInput {
   readonly schemaVersion: typeof REPORT_SCHEMA_VERSION;
 }
 
-export function assembleAgentGuardReport(
-  input: AgentGuardReportAssemblyInput,
-): AssembledAgentGuardReport {
+export function assembleDiffSentryReport(
+  input: DiffSentryReportAssemblyInput,
+): AssembledDiffSentryReport {
   return {
     ...input,
     schemaVersion: REPORT_SCHEMA_VERSION,

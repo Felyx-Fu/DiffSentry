@@ -1,4 +1,4 @@
-# AgentGuard v0.1 built-in rule authoring
+# DiffSentry v0.1 built-in rule authoring
 
 Rules are deterministic, built-in repository checks. A rule turns an explicit
 structured context into zero or more findings; it does not execute commands,
@@ -100,8 +100,8 @@ The following is a shape guide; adapt the context and evidence types to the
 condition being checked:
 
 ```ts
-import type { Evidence, EvidenceLocation, Finding, Severity } from "@agentguard/contracts";
-import type { RuleMetadata } from "@agentguard/rules";
+import type { Evidence, EvidenceLocation, Finding, Severity } from "@felyx-fu/diffsentry-contracts";
+import type { RuleMetadata } from "@felyx-fu/diffsentry-rules";
 
 export interface ExampleRuleContext {
   readonly changedFiles: readonly { readonly path: string; readonly contents: string }[];

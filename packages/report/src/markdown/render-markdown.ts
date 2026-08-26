@@ -1,9 +1,9 @@
 import type {
-  AgentGuardReport,
+  DiffSentryReport,
   EvidenceLocation,
   Finding,
   VerificationResult,
-} from "@agentguard/contracts";
+} from "@felyx-fu/diffsentry-contracts";
 
 function formatLocation(location: EvidenceLocation | undefined): string {
   if (location === undefined) {
@@ -51,9 +51,9 @@ function formatVerification(verification: VerificationResult): string {
   return `- \`${verification.id}\`: **${verification.status.toUpperCase()}** — \`${command}\``;
 }
 
-export function renderMarkdownReport(report: AgentGuardReport): string {
+export function renderMarkdownReport(report: DiffSentryReport): string {
   const lines = [
-    `## AgentGuard ${report.version}`,
+    `## DiffSentry ${report.version}`,
     "",
     `- **Verdict:** \`${report.verdict.toUpperCase()}\``,
     `- **Risk score:** \`${report.riskScore}/100\``,

@@ -1,4 +1,4 @@
-import type { RiskVerdict } from "@agentguard/core";
+import type { RiskVerdict } from "@felyx-fu/diffsentry-core";
 
 export const CLI_EXIT_CODES = Object.freeze({
   pass: 0,

@@ -1,15 +1,14 @@
-# AgentGuard
+# DiffSentry
 
 Deterministic, local-first verification for code changes, with an emphasis on
 evidence from AI-generated changes.
 
-> v0.1 is under active release preparation. This README describes the current
-> verified source and fixture behavior; it does not claim a published package
-> or a live GitHub runner integration before those release tasks are complete.
+> DiffSentry v0.1.0 is a release candidate. This README describes the verified
+> source and packed-artifact behavior; npm publication has not occurred.
 
 ## Problem
 
-Code review needs more than a diff summary. AgentGuard is designed to answer
+Code review needs more than a diff summary. DiffSentry is designed to answer
 four concrete questions:
 
 1. What changed?
@@ -33,7 +32,7 @@ Markdown output. The deterministic fixture test asserts this terminal-renderer
 shape:
 
 ```text
-AgentGuard 0.1.0
+DiffSentry 0.1.0
 Verdict: FAIL
 Risk score: 50/100
 Findings: 1
@@ -65,9 +64,16 @@ secret-exposure fixture, runs the package-local check stack, verifies the
 modify the checkout or require a global install.
 
 For a full source quality gate, run `pnpm lint`, `pnpm typecheck`, `pnpm test`,
-and `pnpm build` after the fixture check. The published one-command CLI path
-is being finalized in the P7 release tasks; do not infer a published `npx`
-package from this source checkout alone.
+and `pnpm build` after the fixture check.
+
+Planned npm command for v0.1.0 (publication not performed):
+
+```bash
+npx @felyx-fu/diffsentry check
+```
+
+The package is a release candidate and is not yet available from npm. The
+source checkout and packed-artifact validation can be used before publication.
 
 ## Features
 
@@ -137,7 +143,7 @@ The current task status and evidence are tracked in
 
 ## Non-goals for v0.1
 
-AgentGuard v0.1 is not an AI code reviewer, a hosted dashboard, a package
+DiffSentry v0.1 is not an AI code reviewer, a hosted dashboard, a package
 vulnerability database, a full CI platform, an IDE, or a replacement for every
 SAST tool. It does not use LLM scoring, network-based scoring, confidence
 scaling, category multipliers, or executable JavaScript/TypeScript

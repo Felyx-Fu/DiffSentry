@@ -1,4 +1,4 @@
-import type { AssembledAgentGuardReport } from "@agentguard/core";
+import type { AssembledDiffSentryReport } from "@felyx-fu/diffsentry-core";
 import { describe, expect, it } from "vitest";
 import {
   createGitHubAnnotations,
@@ -6,7 +6,7 @@ import {
   publishGitHubAnnotations,
 } from "./annotations.js";
 
-function createReport(): AssembledAgentGuardReport {
+function createReport(): AssembledDiffSentryReport {
   return {
     changes: { baseRef: "base", files: [], headRef: "head" },
     findings: [

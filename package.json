@@ -1,16 +1,16 @@
 {
-  "name": "agentguard",
+  "name": "diffsentry",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Felyx-Fu/AgentGuard.git"
+    "url": "git+https://github.com/Felyx-Fu/DiffSentry.git"
   },
   "bugs": {
-    "url": "https://github.com/Felyx-Fu/AgentGuard/issues"
+    "url": "https://github.com/Felyx-Fu/DiffSentry/issues"
   },
-  "homepage": "https://github.com/Felyx-Fu/AgentGuard#readme",
+  "homepage": "https://github.com/Felyx-Fu/DiffSentry#readme",
   "type": "module",
   "packageManager": "pnpm@10.30.3",
   "engines": {

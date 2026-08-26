@@ -1,4 +1,4 @@
-# AgentGuard v0.1 exit codes and CI status
+# DiffSentry v0.1 exit codes and CI status
 
 Exit codes are meaningful only together with the path that produced them. The
 CLI verdict mapping applies to a completed check outcome. Informational CLI
@@ -13,7 +13,7 @@ commands and top-level usage handling are separate paths.
 | `0` | `PASS` | The final risk score is below the configured `review` threshold. The check completed successfully. |
 | `1` | `REVIEW` | The final risk score is at least `review` and below `fail`. The check completed, but human review is required. |
 | `2` | `FAIL` | The final risk score is at least the configured `fail` threshold. The check completed with a failing risk verdict. |
-| `3` | internal error | AgentGuard could not complete its own check path. This is not a verifier result and is not entered into `RiskScore`. |
+| `3` | internal error | DiffSentry could not complete its own check path. This is not a verifier result and is not entered into `RiskScore`. |
 
 The default thresholds are `review = 15` and `fail = 50`, with the invariant
 `0 <= review < fail <= 100`. A caller that supplies thresholds changes only the
@@ -21,7 +21,7 @@ verdict boundary; it does not change the numeric exit-code table.
 
 A verifier result with status `error` is different from exit code `3`. The
 verifier `error` receives the fixed v0.1 verification penalty and can lead to a
-`REVIEW` or `FAIL` verdict, which then maps to `1` or `2`. AgentGuard internal
+`REVIEW` or `FAIL` verdict, which then maps to `1` or `2`. DiffSentry internal
 errors bypass risk aggregation and map to `3`.
 
 ## Non-check CLI paths
@@ -67,12 +67,12 @@ second risk score or a different verdict mapping.
 ## What exit codes do not mean
 
 - Exit code `1` is not a generic “test failed” code when returned by a completed
-  AgentGuard check; it specifically represents the `REVIEW` verdict in that
+  DiffSentry check; it specifically represents the `REVIEW` verdict in that
   path.
 - A verifier process's own `exitCode` is stored inside its
-  `VerificationResult`; it is not automatically reused as the AgentGuard CLI
+  `VerificationResult`; it is not automatically reused as the DiffSentry CLI
   exit code.
-- A verifier status of `error` is not an AgentGuard internal error.
+- A verifier status of `error` is not a DiffSentry internal error.
 - A `FAIL` verdict is not proof that an exploit occurred; it is the result of
   deterministic findings, verification penalties, and configured thresholds.
 - An Action `failure` status follows `fail-on`; it does not imply that the CLI

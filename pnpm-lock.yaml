@@ -29,19 +29,19 @@ importers:
 
   apps/github-action:
     dependencies:
-      '@agentguard/config':
+      '@felyx-fu/diffsentry-config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@agentguard/core':
+      '@felyx-fu/diffsentry-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@agentguard/report':
+      '@felyx-fu/diffsentry-report':
         specifier: workspace:*
         version: link:../../packages/report
-      '@agentguard/rules':
+      '@felyx-fu/diffsentry-rules':
         specifier: workspace:*
         version: link:../../packages/rules
-      '@agentguard/runtime-node':
+      '@felyx-fu/diffsentry-runtime-node':
         specifier: workspace:*
         version: link:../../packages/runtime-node
     devDependencies:
@@ -51,22 +51,22 @@ importers:
 
   packages/cli:
     dependencies:
-      '@agentguard/config':
+      '@felyx-fu/diffsentry-config':
         specifier: workspace:*
         version: link:../config
-      '@agentguard/contracts':
+      '@felyx-fu/diffsentry-contracts':
         specifier: workspace:*
         version: link:../contracts
-      '@agentguard/core':
+      '@felyx-fu/diffsentry-core':
         specifier: workspace:*
         version: link:../core
-      '@agentguard/report':
+      '@felyx-fu/diffsentry-report':
         specifier: workspace:*
         version: link:../report
-      '@agentguard/rules':
+      '@felyx-fu/diffsentry-rules':
         specifier: workspace:*
         version: link:../rules
-      '@agentguard/runtime-node':
+      '@felyx-fu/diffsentry-runtime-node':
         specifier: workspace:*
         version: link:../runtime-node
 
@@ -78,7 +78,7 @@ importers:
 
   packages/report:
     dependencies:
-      '@agentguard/contracts':
+      '@felyx-fu/diffsentry-contracts':
         specifier: workspace:*
         version: link:../contracts
 

@@ -1,6 +1,6 @@
-import type { AgentGuardReport } from "@agentguard/contracts";
+import type { DiffSentryReport } from "@felyx-fu/diffsentry-contracts";
 
-export function renderJsonReport(report: AgentGuardReport): string {
+export function renderJsonReport(report: DiffSentryReport): string {
   return JSON.stringify(
     {
       version: report.version,

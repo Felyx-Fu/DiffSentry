@@ -1,4 +1,4 @@
-import type { AssembledAgentGuardReport } from "@agentguard/core";
+import type { AssembledDiffSentryReport } from "@felyx-fu/diffsentry-core";
 import { describe, expect, it } from "vitest";
 import { publishGitHubAnnotations } from "./annotations.js";
 import { runGitHubActionCheck } from "./check.js";
@@ -9,7 +9,7 @@ import { resolveBaseSha, resolveHeadSha } from "./revisions.js";
 import { resolveGitHubActionStatus } from "./status-behavior.js";
 import { publishGitHubStepSummary } from "./step-summary.js";
 
-function createPullRequestReport(): AssembledAgentGuardReport {
+function createPullRequestReport(): AssembledDiffSentryReport {
   return {
     changes: {
       baseRef: "1111111111111111111111111111111111111111",

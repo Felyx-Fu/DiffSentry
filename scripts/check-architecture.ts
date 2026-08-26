@@ -117,7 +117,7 @@ function findViolations(): string[] {
       if (isForbiddenNodeImport(specifier)) {
         violations.push(`${relativePath}: forbidden Node import ${specifier}`);
       } else if (
-        specifier.startsWith("@agentguard/") ||
+        specifier.startsWith("@diffsentry/") ||
         specifier.startsWith("../")
       ) {
         violations.push(

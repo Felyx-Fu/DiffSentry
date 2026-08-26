@@ -1,18 +1,18 @@
 import {
   type ConfigLayer,
-  type MergedAgentGuardConfig,
+  type MergedDiffSentryConfig,
   parseConfigJson,
   validateConfig,
-} from "@agentguard/config";
-import type { AgentGuardReport } from "@agentguard/contracts";
-import type { CheckRepositoryDependencies } from "@agentguard/core";
+} from "@felyx-fu/diffsentry-config";
+import type { DiffSentryReport } from "@felyx-fu/diffsentry-contracts";
+import type { CheckRepositoryDependencies } from "@felyx-fu/diffsentry-core";
 import {
   renderJsonReport,
   renderMarkdownReport,
   renderTerminalReport,
-} from "@agentguard/report";
-import type { AgentGuardComposition } from "../composition/create-agentguard.js";
-import { createAgentGuard } from "../composition/create-agentguard.js";
+} from "@felyx-fu/diffsentry-report";
+import type { DiffSentryComposition } from "../composition/create-diffsentry.js";
+import { createDiffSentry } from "../composition/create-diffsentry.js";
 
 type CheckGitStatus = Awaited<
   ReturnType<CheckRepositoryDependencies["gitProvider"]["getStatus"]>
@@ -22,7 +22,7 @@ export const CHECK_FORMATS = ["terminal", "json", "markdown"] as const;
 export type CheckFormat = (typeof CHECK_FORMATS)[number];
 export const CHECK_CI_DEFAULT_FORMAT: CheckFormat = "json";
 
-type CheckReportRenderer = (report: AgentGuardReport) => string;
+type CheckReportRenderer = (report: DiffSentryReport) => string;
 
 const REPORT_RENDERERS: Readonly<Record<CheckFormat, CheckReportRenderer>> = {
   json: renderJsonReport,
@@ -35,7 +35,7 @@ export interface CheckCommandOptions {
   readonly ci?: boolean;
   readonly configPath?: string;
   readonly cwd?: string;
-  readonly composition?: AgentGuardComposition;
+  readonly composition?: DiffSentryComposition;
   readonly format?: string;
   readonly headRef?: string;
 }
@@ -84,7 +84,7 @@ export interface CheckCommandSuccess {
   readonly status: CheckGitStatus;
   readonly diff: string;
   readonly diffSelection: CheckDiffSelection;
-  readonly config: MergedAgentGuardConfig;
+  readonly config: MergedDiffSentryConfig;
   readonly format: CheckFormat;
 }
 
@@ -94,7 +94,7 @@ export interface CheckCommandNotRepository {
   readonly status: null;
   readonly diff: null;
   readonly diffSelection: null;
-  readonly config: MergedAgentGuardConfig;
+  readonly config: MergedDiffSentryConfig;
   readonly format: CheckFormat;
 }
 
@@ -124,13 +124,13 @@ export function resolveCheckFormat(
 
 export function renderCheckReport(
   format: CheckFormat,
-  report: AgentGuardReport,
+  report: DiffSentryReport,
 ): string {
   return REPORT_RENDERERS[format](report);
 }
 
 async function loadConfigLayer(
-  composition: AgentGuardComposition,
+  composition: DiffSentryComposition,
   configPath: string,
 ): Promise<ConfigLayer> {
   let contents: string;
@@ -157,14 +157,14 @@ async function loadConfigLayer(
 
 async function resolveComposition(
   options: CheckCommandOptions,
-): Promise<AgentGuardComposition> {
-  const composition = options.composition ?? createAgentGuard();
+): Promise<DiffSentryComposition> {
+  const composition = options.composition ?? createDiffSentry();
   if (options.configPath === undefined) {
     return composition;
   }
 
   const config = await loadConfigLayer(composition, options.configPath);
-  return createAgentGuard({
+  return createDiffSentry({
     config,
     report: composition.report,
     runtime: composition.runtime,

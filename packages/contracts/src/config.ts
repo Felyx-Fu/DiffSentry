@@ -19,7 +19,7 @@ export interface RiskThresholds {
   readonly fail: number;
 }
 
-export interface AgentGuardConfig {
+export interface DiffSentryConfig {
   readonly verification?: VerificationToggles;
   readonly rules?: RuleOverrides;
   readonly thresholds?: RiskThresholds;

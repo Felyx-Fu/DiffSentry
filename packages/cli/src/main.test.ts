@@ -24,15 +24,15 @@ describe("runCli", () => {
 
     expect(runCli(["--help"], output)).toBe(0);
     expect(stdout).toEqual([CLI_HELP]);
-    expect(stdout[0]).toContain(`AgentGuard ${CLI_VERSION}`);
-    expect(stdout[0]).toContain("agentguard --help");
+    expect(stdout[0]).toContain(`DiffSentry ${CLI_VERSION}`);
+    expect(stdout[0]).toContain("diffsentry --help");
     expect(stderr).toEqual([]);
   });
 
   it("lists only supported commands and check options in help", () => {
-    expect(CLI_HELP).toContain("agentguard check [options]");
-    expect(CLI_HELP).toContain("agentguard init");
-    expect(CLI_HELP).toContain("agentguard explain <rule-id>");
+    expect(CLI_HELP).toContain("diffsentry check [options]");
+    expect(CLI_HELP).toContain("diffsentry init");
+    expect(CLI_HELP).toContain("diffsentry explain <rule-id>");
     expect(CLI_HELP).toContain("--base <ref>");
     expect(CLI_HELP).toContain("--head <ref>");
     expect(CLI_HELP).toContain("--config <path>");
@@ -62,6 +62,6 @@ describe("runCli", () => {
     const unsupported = createOutput();
     expect(runCli(["--unsupported"], unsupported.output)).toBe(1);
     expect(unsupported.stdout).toEqual([]);
-    expect(unsupported.stderr[0]).toContain("agentguard --help");
+    expect(unsupported.stderr[0]).toContain("diffsentry --help");
   });
 });

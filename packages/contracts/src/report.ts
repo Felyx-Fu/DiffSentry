@@ -6,7 +6,7 @@ import type { VerificationResult } from "./verification.js";
 
 export const REPORT_SCHEMA_VERSION = 1 as const;
 
-export interface AgentGuardReport {
+export interface DiffSentryReport {
   readonly version: string;
   readonly project: ProjectContext;
   readonly changes: ChangeSet;

@@ -1,6 +1,6 @@
 ---
 name: Deterministic rule request
-about: Propose a narrowly scoped built-in AgentGuard rule with reproducible evidence
+about: Propose a narrowly scoped built-in DiffSentry rule with reproducible evidence
 title: "[Rule]: "
 labels: "rule,needs-triage"
 assignees: ""

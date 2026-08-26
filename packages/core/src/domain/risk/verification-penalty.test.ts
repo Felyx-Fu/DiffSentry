@@ -35,7 +35,7 @@ describe("verification penalties", () => {
     expect(getVerificationPenalty({ id: "lint", status: "failed" })).toBe(15);
   });
 
-  it("scores verification errors but has no AgentGuard internal-error entry", () => {
+  it("scores verification errors but has no DiffSentry internal-error entry", () => {
     expect(getVerificationPenalty({ id: "test", status: "error" })).toBe(30);
     expect(Object.keys(VERIFICATION_PENALTIES)).toEqual([
       "build",

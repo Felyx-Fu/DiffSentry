@@ -5,12 +5,14 @@
     "ignoreDeprecations": "6.0",
     "noEmit": true,
     "paths": {
-      "@agentguard/config": ["packages/config/src/index.ts"],
-      "@agentguard/contracts": ["packages/contracts/src/index.ts"],
-      "@agentguard/core": ["packages/core/src/index.ts"],
-      "@agentguard/report": ["packages/report/src/index.ts"],
-      "@agentguard/rules": ["packages/rules/src/index.ts"],
-      "@agentguard/runtime-node": ["packages/runtime-node/src/index.ts"]
+      "@felyx-fu/diffsentry-config": ["packages/config/src/index.ts"],
+      "@felyx-fu/diffsentry-contracts": ["packages/contracts/src/index.ts"],
+      "@felyx-fu/diffsentry-core": ["packages/core/src/index.ts"],
+      "@felyx-fu/diffsentry-report": ["packages/report/src/index.ts"],
+      "@felyx-fu/diffsentry-rules": ["packages/rules/src/index.ts"],
+      "@felyx-fu/diffsentry-runtime-node": [
+        "packages/runtime-node/src/index.ts"
+      ]
     },
     "types": ["node", "vitest"]
   },

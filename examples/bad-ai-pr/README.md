@@ -1,4 +1,4 @@
-# AgentGuard intentionally risky diff
+# DiffSentry intentionally risky diff
 
 This directory is a deterministic, secret-free demo of a risky change. It
 contains before/after snapshots for two scenarios and a package-local test that
@@ -34,12 +34,12 @@ package reputation.
 
 ## Verify
 
-From the AgentGuard repository root:
+From the DiffSentry repository root:
 
 ```bash
 pnpm exec vitest run examples/bad-ai-pr/check.test.ts
 ```
 
-The test uses the local `@agentguard/rules` and `@agentguard/core` source
+The test uses the local `@felyx-fu/diffsentry-rules` and `@felyx-fu/diffsentry-core` source
 through the repository's test configuration. It does not claim a published CLI
 package or a live GitHub runner invocation.

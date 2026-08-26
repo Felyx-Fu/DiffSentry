@@ -1,12 +1,13 @@
-# AgentGuard
+# DiffSentry
 
 面向代码变更的确定性、本地优先验证，重点关注 AI 生成变更的证据。
 
-> v0.1 正在准备发布。本 README 描述当前已经验证的源码和 fixture 行为；在相关发布任务完成前，不宣称已有已发布的包或可用的实时 GitHub runner 集成。
+> DiffSentry v0.1.0 当前是 release candidate。本 README 描述已经验证的源码
+> 和打包产物行为；npm 尚未发布。
 
 ## 要解决的问题
 
-代码审查需要的不只是 diff 摘要。AgentGuard 旨在回答四个具体问题：
+代码审查需要的不只是 diff 摘要。DiffSentry 旨在回答四个具体问题：
 
 1. 发生了哪些变化？
 2. 哪些客观检查可以运行？
@@ -22,7 +23,7 @@
 同一份报告模型可以渲染为终端、JSON 和适用于 GitHub 的 Markdown 输出。确定性 fixture 测试断言了以下终端渲染形状：
 
 ```text
-AgentGuard 0.1.0
+DiffSentry 0.1.0
 Verdict: FAIL
 Risk score: 50/100
 Findings: 1
@@ -48,7 +49,16 @@ pnpm install --frozen-lockfile && pnpm exec vitest run tests/e2e/cli-fixture.tes
 
 该命令会创建临时 Git 仓库，应用仓库内的 secret-exposure fixture，运行 package-local 检查栈，验证 `50/100` 的 `FAIL` 报告，并检查映射后的 CLI 退出码。它不会修改当前 checkout，也不需要全局安装。
 
-如需运行完整源码质量门，请在 fixture 检查之后执行 `pnpm lint`、`pnpm typecheck`、`pnpm test` 和 `pnpm build`。已发布的一键 CLI 路径仍在 P7 发布任务中完善；不要仅凭当前源码 checkout 推断已存在可用的已发布 `npx` 包。
+如需运行完整源码质量门，请在 fixture 检查之后执行 `pnpm lint`、`pnpm typecheck`、`pnpm test` 和 `pnpm build`。
+
+v0.1.0 计划使用的 npm 命令（尚未发布）：
+
+```bash
+npx @felyx-fu/diffsentry check
+```
+
+该 package 目前仍是 release candidate，尚不能从 npm 安装。发布前可以使用
+源码 checkout 和已验证的打包产物进行验证。
 
 ## 功能
 
@@ -103,7 +113,7 @@ RiskScore 是确定性的，只使用发现的严重程度和验证结果。v0.1
 
 ## v0.1 的非目标
 
-AgentGuard v0.1 不是 AI 代码审查器、托管式仪表板、软件包漏洞数据库、完整 CI 平台、IDE，也不是所有 SAST 工具的替代品。它不使用 LLM 评分、基于网络的评分、confidence 缩放、类别乘数，也不接受可执行的 JavaScript/TypeScript 配置。
+DiffSentry v0.1 不是 AI 代码审查器、托管式仪表板、软件包漏洞数据库、完整 CI 平台、IDE，也不是所有 SAST 工具的替代品。它不使用 LLM 评分、基于网络的评分、confidence 缩放、类别乘数，也不接受可执行的 JavaScript/TypeScript 配置。
 
 ## 参与贡献
 

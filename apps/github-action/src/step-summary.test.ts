@@ -1,11 +1,11 @@
-import type { AssembledAgentGuardReport } from "@agentguard/core";
+import type { AssembledDiffSentryReport } from "@felyx-fu/diffsentry-core";
 import { describe, expect, it } from "vitest";
 import {
   GitHubStepSummaryError,
   publishGitHubStepSummary,
 } from "./step-summary.js";
 
-function createReport(): AssembledAgentGuardReport {
+function createReport(): AssembledDiffSentryReport {
   return {
     changes: { baseRef: "base-sha", files: [], headRef: "head-sha" },
     findings: [
@@ -55,7 +55,7 @@ describe("publishGitHubStepSummary", () => {
       {
         path: "C:/fixture/step-summary.md",
         contents: expect.stringContaining(
-          "## AgentGuard 0.1.0\n\n- **Verdict:** `REVIEW`\n- **Risk score:** `45/100`",
+          "## DiffSentry 0.1.0\n\n- **Verdict:** `REVIEW`\n- **Risk score:** `45/100`",
         ),
       },
     ]);

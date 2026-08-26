@@ -1,5 +1,5 @@
 {
-  "name": "agentguard-bad-ai-pr-fail",
+  "name": "diffsentry-bad-ai-pr-fail",
   "private": true,
   "type": "module",
   "dependencies": {

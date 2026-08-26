@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
-  type AgentGuardReportAssemblyInput,
-  assembleAgentGuardReport,
+  assembleDiffSentryReport,
+  type DiffSentryReportAssemblyInput,
   REPORT_SCHEMA_VERSION,
 } from "./report-assembler.js";
 
-const input: AgentGuardReportAssemblyInput = {
+const input: DiffSentryReportAssemblyInput = {
   changes: {
     baseRef: "base",
     files: [
@@ -53,16 +53,16 @@ const input: AgentGuardReportAssemblyInput = {
   version: "0.1.0",
 };
 
-describe("assembleAgentGuardReport", () => {
+describe("assembleDiffSentryReport", () => {
   it("assembles the complete schema-versioned report without rendering", () => {
-    expect(assembleAgentGuardReport(input)).toEqual({
+    expect(assembleDiffSentryReport(input)).toEqual({
       ...input,
       schemaVersion: REPORT_SCHEMA_VERSION,
     });
   });
 
   it("preserves empty findings and verifications as complete report fields", () => {
-    const emptyInput: AgentGuardReportAssemblyInput = {
+    const emptyInput: DiffSentryReportAssemblyInput = {
       ...input,
       findings: [],
       riskScore: 0,
@@ -70,7 +70,7 @@ describe("assembleAgentGuardReport", () => {
       verifications: [],
     };
 
-    expect(assembleAgentGuardReport(emptyInput)).toMatchObject({
+    expect(assembleDiffSentryReport(emptyInput)).toMatchObject({
       findings: [],
       riskScore: 0,
       schemaVersion: 1,

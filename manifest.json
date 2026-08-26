@@ -1,5 +1,5 @@
 {
-  "project": "AgentGuard",
+  "project": "DiffSentry",
   "version_target": "0.1.0",
   "toolchain": {
     "node": "24 LTS",

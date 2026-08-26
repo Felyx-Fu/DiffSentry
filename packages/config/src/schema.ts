@@ -1,6 +1,6 @@
-export const AGENTGUARD_CONFIG_FILE_NAME = "agentguard.config.json" as const;
-export const AGENTGUARD_CONFIG_SCHEMA_FILE_NAME =
-  "agentguard.config.schema.json" as const;
+export const DIFFSENTRY_CONFIG_FILE_NAME = "diffsentry.config.json" as const;
+export const DIFFSENTRY_CONFIG_SCHEMA_FILE_NAME =
+  "diffsentry.config.schema.json" as const;
 
 export const CONFIG_VERIFICATION_KEYS = [
   "test",

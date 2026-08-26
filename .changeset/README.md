@@ -1,6 +1,6 @@
 # Changesets
 
-This directory contains release intents for AgentGuard's public workspace
+This directory contains release intents for DiffSentry's public workspace
 packages. A release intent is a small Markdown file that names the package,
 selects a semver bump, and explains the user-visible change.
 
@@ -14,7 +14,7 @@ selects a semver bump, and explains the user-visible change.
 5. Run `pnpm changeset status` to inspect pending release intent without
    changing package versions.
 
-The checked-in configuration keeps `@agentguard/github-action` private and
+The checked-in configuration keeps `@felyx-fu/diffsentry-github-action` private and
 does not version or tag private packages. Public packages use independent
 versions; no fixed or linked package groups are configured for v0.1.
 

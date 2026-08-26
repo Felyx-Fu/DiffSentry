@@ -1,4 +1,4 @@
-name: AgentGuard Dogfood
+name: DiffSentry Dogfood
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
     paths:
       - "apps/github-action/**"
       - "packages/**"
-      - "agentguard.config.schema.json"
+      - "diffsentry.config.schema.json"
       - "examples/github-action/**"
       - ".github/workflows/dogfood.yml"
 
@@ -42,9 +42,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build local Action bundle
-        run: pnpm --filter @agentguard/github-action build
+        run: pnpm --filter @felyx-fu/diffsentry-github-action build
 
-      - name: Run AgentGuard against the repository
+      - name: Run DiffSentry against the repository
         uses: ./apps/github-action
         with:
           format: markdown

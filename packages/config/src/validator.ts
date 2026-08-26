@@ -25,7 +25,7 @@ export interface ValidatedRiskThresholds {
   readonly fail: number;
 }
 
-export interface ValidatedAgentGuardConfig {
+export interface ValidatedDiffSentryConfig {
   readonly verification?: ValidatedVerificationConfig;
   readonly rules?: ValidatedRuleOverrides;
   readonly thresholds?: ValidatedRiskThresholds;
@@ -110,7 +110,7 @@ function isRiskThresholds(value: unknown): value is ValidatedRiskThresholds {
 
 export function validateConfig(
   value: unknown,
-): value is ValidatedAgentGuardConfig {
+): value is ValidatedDiffSentryConfig {
   if (
     !isRecord(value) ||
     !hasOnlyKeys(value, ["verification", "rules", "thresholds"])

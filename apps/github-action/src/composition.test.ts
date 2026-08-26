@@ -1,9 +1,9 @@
 import type {
-  AgentGuardReportAssemblyInput,
   CheckRepositoryDependencies,
-} from "@agentguard/core";
-import { CheckRepositoryUseCase } from "@agentguard/core";
-import { BUILT_IN_RULES } from "@agentguard/rules";
+  DiffSentryReportAssemblyInput,
+} from "@felyx-fu/diffsentry-core";
+import { CheckRepositoryUseCase } from "@felyx-fu/diffsentry-core";
+import { BUILT_IN_RULES } from "@felyx-fu/diffsentry-rules";
 import { describe, expect, it } from "vitest";
 import { createGitHubActionComposition } from "./composition.js";
 import { parseGitHubEventContext } from "./event-context.js";
@@ -35,7 +35,7 @@ describe("createGitHubActionComposition", () => {
   it("reuses the core checker, built-in rules, config merge, and report port", () => {
     const runtime = createTestRuntime();
     const report = {
-      assemble: (input: AgentGuardReportAssemblyInput) => ({
+      assemble: (input: DiffSentryReportAssemblyInput) => ({
         ...input,
         schemaVersion: 1 as const,
       }),

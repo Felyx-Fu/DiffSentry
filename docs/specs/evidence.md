@@ -1,15 +1,15 @@
-# AgentGuard v0.1 evidence, finding, and report semantics
+# DiffSentry v0.1 evidence, finding, and report semantics
 
-AgentGuard separates an observed fact from the rule claim that interprets it,
+DiffSentry separates an observed fact from the rule claim that interprets it,
 and separates both from the final report and verdict. This page describes the
 current public report shape. It is versioned documentation, not a promise that
 the shape will remain unchanged forever.
 
 ## Versioning
 
-Every `AgentGuardReport` carries two version values:
+Every `DiffSentryReport` carries two version values:
 
-- `version` identifies the AgentGuard product/runtime version, currently
+- `version` identifies the DiffSentry product/runtime version, currently
   `0.1.0` in the repository examples;
 - `schemaVersion` identifies the report data shape, currently the numeric
   value `1`.
@@ -124,7 +124,7 @@ The category is one of `source`, `test`, `config`, `dependency`,
 ## Verification results
 
 A `VerificationResult` records an attempted recognized verification rather
-than an AgentGuard implementation failure:
+than a DiffSentry implementation failure:
 
 | Field | Type | Meaning |
 | --- | --- | --- |
@@ -137,7 +137,7 @@ than an AgentGuard implementation failure:
 | `stderr` | `{ text, truncated }` | Bounded standard-error summary. |
 
 The `error` status is a verification result and receives the v0.1 verification
-penalty. An AgentGuard internal error is not a verification result, does not
+penalty. A DiffSentry internal error is not a verification result, does not
 enter `RiskScore`, and follows the internal-error path with CLI exit code `3`.
 
 The fixed v0.1 verification penalties are:
@@ -152,13 +152,13 @@ The fixed v0.1 verification penalties are:
 Captured output is bounded and may be marked `truncated: true`. A report must
 not imply that omitted output was observed.
 
-## AgentGuard report
+## DiffSentry report
 
-`AgentGuardReport` combines the structured context and the final decision:
+`DiffSentryReport` combines the structured context and the final decision:
 
 | Field | Type | Meaning |
 | --- | --- | --- |
-| `version` | string | AgentGuard product/runtime version. |
+| `version` | string | DiffSentry product/runtime version. |
 | `schemaVersion` | `1` in v0.1 | Report shape version; see [Versioning](#versioning). |
 | `project` | `ProjectContext` | Project context for the check. |
 | `changes` | `ChangeSet` | Git change context. |

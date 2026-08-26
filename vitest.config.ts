@@ -10,12 +10,12 @@ function workspaceSource(packageName: string): string {
 export default defineConfig({
   resolve: {
     alias: {
-      "@agentguard/config": workspaceSource("config"),
-      "@agentguard/contracts": workspaceSource("contracts"),
-      "@agentguard/core": workspaceSource("core"),
-      "@agentguard/report": workspaceSource("report"),
-      "@agentguard/rules": workspaceSource("rules"),
-      "@agentguard/runtime-node": workspaceSource("runtime-node"),
+      "@felyx-fu/diffsentry-config": workspaceSource("config"),
+      "@felyx-fu/diffsentry-contracts": workspaceSource("contracts"),
+      "@felyx-fu/diffsentry-core": workspaceSource("core"),
+      "@felyx-fu/diffsentry-report": workspaceSource("report"),
+      "@felyx-fu/diffsentry-rules": workspaceSource("rules"),
+      "@felyx-fu/diffsentry-runtime-node": workspaceSource("runtime-node"),
     },
   },
   test: {

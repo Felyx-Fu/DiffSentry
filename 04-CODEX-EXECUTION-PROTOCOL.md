@@ -1,6 +1,6 @@
 # Codex Execution Protocol
 
-This file defines how Codex must develop AgentGuard.
+This file defines how Codex must develop DiffSentry.
 
 ## 1. Before editing
 

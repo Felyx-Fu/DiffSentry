@@ -1,5 +1,5 @@
 {
-  "name": "agentguard-fixture",
+  "name": "diffsentry-fixture",
   "dependencies": {},
   "devDependencies": {
     "eslint": "^9.0.0",

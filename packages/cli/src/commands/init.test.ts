@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { validateConfig } from "@agentguard/config";
+import { validateConfig } from "@felyx-fu/diffsentry-config";
 import { describe, expect, it } from "vitest";
 import {
   type InitFileSystem,
@@ -26,7 +26,7 @@ function createFileSystem(existing: boolean): {
 describe("runInitCommand", () => {
   it("creates a minimal schema-conforming JSON config when absent", async () => {
     const { fileSystem, writes } = createFileSystem(false);
-    const configPath = join("E:/workspace", "agentguard.config.json");
+    const configPath = join("E:/workspace", "diffsentry.config.json");
 
     await expect(
       runInitCommand({ cwd: "E:/workspace", fileSystem }),
@@ -45,7 +45,7 @@ describe("runInitCommand", () => {
 
   it("does not overwrite an existing config", async () => {
     const { fileSystem, writes } = createFileSystem(true);
-    const configPath = join("E:/workspace", "agentguard.config.json");
+    const configPath = join("E:/workspace", "diffsentry.config.json");
 
     await expect(
       runInitCommand({ cwd: "E:/workspace", fileSystem }),

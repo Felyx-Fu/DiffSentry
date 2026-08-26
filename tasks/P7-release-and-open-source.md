@@ -278,7 +278,7 @@ produce the approved public artifacts.
 **Must not:** Do not publish internal-only packages accidentally.
 
 **Acceptance:**
-- The canonical repository metadata identifies `Felyx-Fu/AgentGuard`.
+- The canonical repository metadata identifies `Felyx-Fu/DiffSentry`.
 - Every public package has a package-local `tsconfig.build.json` and explicit
   `build` script using unbundled TypeScript output under `dist`.
 - `pnpm build` produces all seven public package `dist` directories and keeps
@@ -325,7 +325,7 @@ do not publish, tag, create a GitHub Release, execute the release workflow, or
 expand the v0.1 scope.
 
 **Acceptance:**
-- The canonical `Felyx-Fu/AgentGuard` repository is used with `main` as the
+- The canonical `Felyx-Fu/DiffSentry` repository is used with `main` as the
   default branch.
 - The same identifiable source revision passes on `ubuntu-latest`,
   `windows-latest`, and `macos-latest`, all with Node 24.

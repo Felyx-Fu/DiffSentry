@@ -1,4 +1,4 @@
-# AgentGuard basic example
+# DiffSentry basic example
 
 This directory is a small, clean Node.js/TypeScript repository fixture. It has
 no runtime dependencies, uses JSON configuration, and includes a matching test
@@ -21,7 +21,7 @@ directory.
 
 ## Verify the example
 
-From the AgentGuard repository root:
+From the DiffSentry repository root:
 
 ```bash
 pnpm exec tsc -p examples/basic/tsconfig.json

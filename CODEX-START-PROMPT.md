@@ -1,6 +1,6 @@
 # Codex Start Prompt
 
-You are implementing AgentGuard v0.1 from the specification pack in this repository.
+You are implementing DiffSentry v0.1 from the specification pack in this repository.
 
 Before writing code:
 

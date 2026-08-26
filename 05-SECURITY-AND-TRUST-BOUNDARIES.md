@@ -1,6 +1,6 @@
 # Security and Trust Boundaries
 
-AgentGuard inspects repositories and may execute repository-defined verification commands. This creates a meaningful trust boundary.
+DiffSentry inspects repositories and may execute repository-defined verification commands. This creates a meaningful trust boundary.
 
 ## 1. Security principles
 
@@ -37,8 +37,8 @@ spawn(userInput, { shell: true });
 v0.1 accepts JSON configuration only.
 
 Do not support:
-- `agentguard.config.ts`
-- `agentguard.config.js`
+- `diffsentry.config.ts`
+- `diffsentry.config.js`
 - dynamic `import()` of config
 - executable config hooks
 
@@ -46,7 +46,7 @@ Reason: loading config must not become arbitrary code execution.
 
 ## 4. Repository scripts
 
-AgentGuard may execute recognized repository scripts only through explicit verification planning.
+DiffSentry may execute recognized repository scripts only through explicit verification planning.
 
 The initial recognized verification intents are:
 - test
