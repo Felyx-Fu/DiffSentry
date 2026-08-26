@@ -5051,12 +5051,28 @@ Hosted attempt 2:
   `realpath(fixture.directory)` and is being validated locally before the
   next authorized push.
 
+Hosted attempt 3:
+- Tested commit: `ea4d835244191477da8507aa8e2f749eef1e925f`
+- Run: `32935591063` —
+  `https://github.com/Felyx-Fu/AgentGuard/actions/runs/32935591063`
+- `ubuntu-latest`: PASS — install, lint, typecheck, test, and build passed.
+- `macos-latest`: PASS — install, lint, typecheck, test, and build passed.
+- `windows-latest`: FAIL at Test only — install, lint, and typecheck passed;
+  build was skipped after the test failure.
+- Windows failure: the child process returned the valid `C:\Users\RUNNER~1\...`
+  8.3 short-path spelling, while the test expected the long-path spelling
+  from `realpath(fixture.directory)`. The runtime process exited successfully;
+  the assertion still compared platform-specific spellings.
+- The next smallest fix canonicalizes both the child output and fixture path
+  with `realpath`, and is being validated locally before the next authorized
+  push.
+
 Execution state:
 - AG-719 remains resumed and the current task remains AG-719.
-- The authorized canonical repository was created and the source plus one
-  ordinary hosted-CI fix were pushed to `main`; hosted attempts 1 and 2 above
-  are the recorded failure evidence. The next cross-platform fix is being
-  validated before the next push.
+- The authorized canonical repository was created and the source plus two
+  ordinary hosted-CI fixes were pushed to `main`; hosted attempts 1 through 3
+  above are the recorded failure evidence. The next cross-platform fix is
+  being validated before the next push.
 - AG-720 remains gated until one identifiable revision passes all three hosted
   runners and the evidence is recorded here.
 

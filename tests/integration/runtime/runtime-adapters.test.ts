@@ -65,7 +65,9 @@ describe("runtime adapters integration", () => {
         stderrLimitBytes: 1024,
       });
       expect(processResult.exitCode).toBe(0);
-      expect(processResult.stdout.text).toBe(await realpath(fixture.directory));
+      expect(await realpath(processResult.stdout.text)).toBe(
+        await realpath(fixture.directory),
+      );
     } finally {
       await fixture.cleanup();
     }
