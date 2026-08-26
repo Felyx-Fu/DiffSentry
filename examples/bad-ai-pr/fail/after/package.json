@@ -1,0 +1,9 @@
+{
+  "name": "agentguard-bad-ai-pr-fail",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "existing-runtime-library": "1.0.0",
+    "example-runtime-library": "1.0.0"
+  }
+}

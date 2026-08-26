@@ -1,0 +1,39 @@
+{
+  "name": "@agentguard/github-action",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felyx-Fu/AgentGuard.git",
+    "directory": "apps/github-action"
+  },
+  "bugs": {
+    "url": "https://github.com/Felyx-Fu/AgentGuard/issues"
+  },
+  "homepage": "https://github.com/Felyx-Fu/AgentGuard#readme",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "action.yml",
+    "dist"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "vite build --config vite.config.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@agentguard/config": "workspace:*",
+    "@agentguard/core": "workspace:*",
+    "@agentguard/report": "workspace:*",
+    "@agentguard/rules": "workspace:*",
+    "@agentguard/runtime-node": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "8.2.2"
+  }
+}

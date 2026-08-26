@@ -1,0 +1,10 @@
+{
+  "name": "agentguard-fixture",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.0",
+    "shared": "^2.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.0"
+  }
+}

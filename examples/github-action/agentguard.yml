@@ -1,0 +1,29 @@
+name: AgentGuard
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+# AgentGuard v0.1 is read-only at the GitHub permission boundary.
+permissions:
+  contents: read
+
+jobs:
+  agentguard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      # This local path is for the repository's own workflow/example. It
+      # requires the bundled apps/github-action/dist artifact from AG-613.
+      - name: Run AgentGuard
+        uses: ./apps/github-action
+        with:
+          format: markdown
+          fail-on: fail
+

@@ -1,0 +1,59 @@
+{
+  "project": "AgentGuard",
+  "version_target": "0.1.0",
+  "toolchain": {
+    "node": "24 LTS",
+    "typescript": "6.0",
+    "module_system": "ESM",
+    "package_manager": "pnpm",
+    "monorepo": "pnpm workspace + Turborepo",
+    "lint_format": "Biome",
+    "test": "Vitest",
+    "config": "JSON + JSON Schema",
+    "release": "Changesets",
+    "license": "MIT"
+  },
+  "phases": [
+    {
+      "id": "P0",
+      "name": "Foundation",
+      "task_count": 24
+    },
+    {
+      "id": "P1",
+      "name": "Contracts",
+      "task_count": 20
+    },
+    {
+      "id": "P2",
+      "name": "Runtime",
+      "task_count": 25
+    },
+    {
+      "id": "P3",
+      "name": "Core Engine",
+      "task_count": 34
+    },
+    {
+      "id": "P4",
+      "name": "Rules",
+      "task_count": 29
+    },
+    {
+      "id": "P5",
+      "name": "CLI & Configuration",
+      "task_count": 24
+    },
+    {
+      "id": "P6",
+      "name": "GitHub Action",
+      "task_count": 16
+    },
+    {
+      "id": "P7",
+      "name": "Release & Open Source",
+      "task_count": 22
+    }
+  ],
+  "total_tasks": 194
+}

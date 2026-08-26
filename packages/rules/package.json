@@ -1,0 +1,37 @@
+{
+  "name": "@agentguard/rules",
+  "version": "0.1.0",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felyx-Fu/AgentGuard.git",
+    "directory": "packages/rules"
+  },
+  "bugs": {
+    "url": "https://github.com/Felyx-Fu/AgentGuard/issues"
+  },
+  "homepage": "https://github.com/Felyx-Fu/AgentGuard#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  }
+}

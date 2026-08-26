@@ -1,0 +1,8 @@
+{
+  "name": "agentguard-fixture",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "vitest": "^4.0.0"
+  }
+}

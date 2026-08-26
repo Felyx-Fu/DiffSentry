@@ -1,0 +1,28 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "noEmit": true,
+    "paths": {
+      "@agentguard/config": ["packages/config/src/index.ts"],
+      "@agentguard/contracts": ["packages/contracts/src/index.ts"],
+      "@agentguard/core": ["packages/core/src/index.ts"],
+      "@agentguard/report": ["packages/report/src/index.ts"],
+      "@agentguard/rules": ["packages/rules/src/index.ts"],
+      "@agentguard/runtime-node": ["packages/runtime-node/src/index.ts"]
+    },
+    "types": ["node", "vitest"]
+  },
+  "include": [
+    "packages/cli/src/**/*.ts",
+    "packages/config/src/**/*.ts",
+    "packages/contracts/src/**/*.ts",
+    "packages/core/src/**/*.ts",
+    "packages/report/src/**/*.ts",
+    "packages/rules/src/**/*.ts",
+    "packages/runtime-node/src/**/*.ts",
+    "tests/e2e/**/*.ts"
+  ],
+  "exclude": ["dist", "node_modules"]
+}

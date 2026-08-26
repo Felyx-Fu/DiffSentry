@@ -1,0 +1,3 @@
+const token = "0123456789abcdef";
+
+export { token };

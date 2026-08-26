@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agentguard.config.schema.json",
+  "title": "AgentGuard v0.1 configuration",
+  "description": "JSON data configuration for AgentGuard verification and rule policy.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "test": { "type": "boolean" },
+        "lint": { "type": "boolean" },
+        "typecheck": { "type": "boolean" },
+        "build": { "type": "boolean" }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(?:ci|dependency|security|testing)\\.[a-z0-9]+(?:-[a-z0-9]+)*$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "severity": {
+              "enum": ["info", "low", "medium", "high", "critical"]
+            }
+          }
+        }
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["review", "fail"],
+      "properties": {
+        "review": { "type": "number", "minimum": 0, "maximum": 100 },
+        "fail": { "type": "number", "minimum": 0, "maximum": 100 }
+      },
+      "$comment": "The validator must additionally enforce 0 <= review < fail <= 100."
+    }
+  },
+  "examples": [
+    {},
+    {
+      "verification": {
+        "test": true,
+        "lint": true,
+        "typecheck": true,
+        "build": false
+      },
+      "rules": {
+        "security.secret-exposure": {
+          "enabled": true,
+          "severity": "critical"
+        },
+        "testing.source-without-tests": {
+          "enabled": false,
+          "severity": "high"
+        }
+      },
+      "thresholds": {
+        "review": 15,
+        "fail": 50
+      }
+    }
+  ]
+}

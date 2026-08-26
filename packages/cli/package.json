@@ -1,0 +1,48 @@
+{
+  "name": "@agentguard/cli",
+  "version": "0.1.0",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felyx-Fu/AgentGuard.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/Felyx-Fu/AgentGuard/issues"
+  },
+  "homepage": "https://github.com/Felyx-Fu/AgentGuard#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "bin": {
+    "agentguard": "./dist/main.js"
+  },
+  "dependencies": {
+    "@agentguard/config": "workspace:*",
+    "@agentguard/contracts": "workspace:*",
+    "@agentguard/core": "workspace:*",
+    "@agentguard/report": "workspace:*",
+    "@agentguard/rules": "workspace:*",
+    "@agentguard/runtime-node": "workspace:*"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  }
+}

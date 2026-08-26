@@ -1,0 +1,51 @@
+name: AgentGuard Dogfood
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "apps/github-action/**"
+      - "packages/**"
+      - "agentguard.config.schema.json"
+      - "examples/github-action/**"
+      - ".github/workflows/dogfood.yml"
+
+# Initial rollout is read-only and intentionally non-blocking until the full
+# core execution port is connected to the Action entrypoint.
+permissions:
+  contents: read
+
+jobs:
+  dogfood:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build local Action bundle
+        run: pnpm --filter @agentguard/github-action build
+
+      - name: Run AgentGuard against the repository
+        uses: ./apps/github-action
+        with:
+          format: markdown
+          fail-on: fail

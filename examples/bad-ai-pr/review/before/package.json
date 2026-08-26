@@ -1,0 +1,8 @@
+{
+  "name": "agentguard-bad-ai-pr-review",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "existing-runtime-library": "1.0.0"
+  }
+}
