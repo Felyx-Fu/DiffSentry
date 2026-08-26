@@ -68,7 +68,10 @@ describe("publishGitHubStepSummary", () => {
 
   it("fails clearly when the step-summary path is unavailable or unwritable", async () => {
     await expect(
-      publishGitHubStepSummary({ result: { report: createReport() } }),
+      publishGitHubStepSummary({
+        result: { report: createReport() },
+        summaryPath: "",
+      }),
     ).rejects.toThrowError(new GitHubStepSummaryError("missing-path"));
 
     await expect(

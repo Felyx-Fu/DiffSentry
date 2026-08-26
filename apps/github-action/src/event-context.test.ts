@@ -101,7 +101,10 @@ describe("readGitHubEventContext", () => {
 
   it("reports missing environment inputs and malformed event files", async () => {
     await expect(
-      readGitHubEventContext({ readText: async () => "{}" }),
+      readGitHubEventContext({
+        eventName: "",
+        readText: async () => "{}",
+      }),
     ).rejects.toThrowError(new GitHubEventContextError("missing-event-name"));
 
     await expect(

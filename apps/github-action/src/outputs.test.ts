@@ -60,7 +60,10 @@ describe("publishGitHubActionOutputs", () => {
 
   it("rejects missing, unwritable, and invalid output contexts", async () => {
     await expect(
-      publishGitHubActionOutputs({ result: { report: createReport() } }),
+      publishGitHubActionOutputs({
+        outputPath: "",
+        result: { report: createReport() },
+      }),
     ).rejects.toThrowError(new GitHubActionOutputError("missing-path"));
 
     await expect(

@@ -5016,9 +5016,30 @@ Required evidence:
   its deferred deep validation must be recorded without expanding AG-719 to
   implement it.
 
+Hosted attempt 1:
+- Canonical repository: `https://github.com/Felyx-Fu/AgentGuard`
+- Workflow: `CI`
+- Tested commit: `acb1b1906d02c049d70305586419aa00bd5c0a10`
+- Run: `32932409223` —
+  `https://github.com/Felyx-Fu/AgentGuard/actions/runs/32932409223`
+- Node setup: `24` on all matrix jobs.
+- `ubuntu-latest`: FAIL — lint and typecheck passed; three Action tests
+  failed because the hosted runner predefines `GITHUB_EVENT_NAME`,
+  `GITHUB_OUTPUT`, and `GITHUB_STEP_SUMMARY`.
+- `macos-latest`: FAIL — lint and typecheck passed; the same three
+  environment-sensitive Action tests failed.
+- `windows-latest`: FAIL — install passed, but Biome saw CRLF checkout
+  content where the repository formatter requires LF and reported 252 files.
+- Root causes are ordinary hosted-runner environment and line-ending
+  differences. The smallest fix adds repository LF attributes and makes the
+  missing-input tests pass explicit empty values; no production behavior or
+  quality gate was weakened.
+
 Execution state:
-- AG-719 is resumed and the current task remains AG-719.
-- No remote write has yet been performed after this authorization is recorded.
+- AG-719 remains resumed and the current task remains AG-719.
+- The authorized canonical repository was created and the baseline source was
+  pushed to `main`; the first hosted run above is the recorded failure
+  evidence. The cross-platform fix is being validated before the next push.
 - AG-720 remains gated until one identifiable revision passes all three hosted
   runners and the evidence is recorded here.
 
