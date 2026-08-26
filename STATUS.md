@@ -5518,3 +5518,100 @@ Release boundary:
 - No npm publish, Changesets publish, NPM_TOKEN use, tag, GitHub Release,
   release workflow, release PR, Marketplace release, or `RELEASED` claim was
   made. Stop and wait for the separately authorized Final Release Review #2.
+
+### DiffSentry v0.1.0 — RELEASED
+
+Date: 2026-08-26
+
+The separately authorized DiffSentry v0.1.0 final release was completed in the
+required order. Product behavior, architecture, security boundaries, the v0.1
+Risk Model, and the Node policy were not changed for publication.
+
+Release source and hosted evidence:
+- Canonical repository: `https://github.com/Felyx-Fu/DiffSentry`
+- Default branch: `main`
+- `RELEASE_SOURCE_SHA`:
+  `05927cf0daf3942994f735f184954eff3efb1d68`
+- The only release-preparation source change was normal consumption of the
+  package-free `.changeset/diffsentry-namespace-migration.md`; all public
+  package versions remained exactly `0.1.0`.
+- CI workflow: `CI`
+- Exact source run: `32949396112`
+  ([GitHub Actions run](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32949396112))
+- `ubuntu-latest`: PASS, Node `v24.19.0`, job `98117158299`
+- `windows-latest`: PASS, Node `v24.19.0`, job `98117157959`
+- `macos-latest`: PASS, Node `v24.18.0`, job `98117158136`
+- All three jobs passed frozen-lockfile install, lint, typecheck, test, and
+  build. Architecture validation is not configured in this hosted workflow;
+  the local architecture check passed. The existing package-boundary command
+  remains its explicit placeholder and reports public-import validation
+  deferred; it is not claimed as deep validation.
+
+Authorized production publication evidence:
+- Release workflow: `Release`
+- Run: `32949675448`
+  ([GitHub Actions run](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32949675448))
+- The run checked out the exact release source, used Node `v24.19.0`, passed
+  install/lint/typecheck/test/build and Changesets status, uploaded only the
+  private GitHub Action bundle as an artifact, and completed the authorized
+  Changesets publish step.
+- Changesets output explicitly listed exactly these seven successful
+  publications at `0.1.0`:
+  `@felyx-fu/diffsentry`, `@felyx-fu/diffsentry-config`,
+  `@felyx-fu/diffsentry-contracts`, `@felyx-fu/diffsentry-core`,
+  `@felyx-fu/diffsentry-report`, `@felyx-fu/diffsentry-rules`, and
+  `@felyx-fu/diffsentry-runtime-node`.
+- Immediately after publication, registry metadata was temporarily not yet
+  visible from this host; independent retries later confirmed all seven
+  packages at `version=0.1.0` and `latest=0.1.0`. No duplicate publish or
+  version change was attempted during that propagation window.
+
+Real registry consumer evidence:
+- Fresh consumer workspace:
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-registry-consumer-20260826-v1`
+- `npm install --ignore-scripts --no-audit --no-fund --prefer-online` passed
+  against `https://registry.npmjs.org`; `npm ls --all --omit=dev` resolved all
+  seven public packages at `0.1.0` without workspace/file/local references.
+- Installed registry artifacts exposed their real `./dist/index.js` and
+  `./dist/index.d.ts` root targets; the CLI exposed `./dist/main.js`; ESM
+  root imports and strict TypeScript declaration resolution passed.
+- Direct `npx @felyx-fu/diffsentry@0.1.0 --version` returned `0.1.0`, and
+  direct `npx @felyx-fu/diffsentry@0.1.0 --help` passed.
+- Fresh real Git fixture:
+  `E:\Temp\diffsentry-registry-fixture-js-20260826-v1`
+- Direct `npx @felyx-fu/diffsentry@0.1.0 check --format json --ci` produced
+  the real secret finding with redacted evidence, `verdict=fail`,
+  `riskScore=50`, no raw secret, empty stderr, and the expected process exit
+  code `2`.
+
+Tag and GitHub Release evidence:
+- Annotated tag `v0.1.0` was created only after registry consumer validation.
+- Local and remote tag dereference both resolve to
+  `05927cf0daf3942994f735f184954eff3efb1d68`; the tag was not moved.
+- GitHub Release: `DiffSentry v0.1.0`
+  ([release page](https://github.com/Felyx-Fu/DiffSentry/releases/tag/v0.1.0))
+- The Release is published, non-draft, non-prerelease, uses tag `v0.1.0`,
+  contains the reviewed release notes, and has no additional binary assets.
+
+The release-state README files, release notes, and checklist were updated only
+after npm visibility, registry consumer, tag, and GitHub Release verification.
+The post-release documentation commit is a documentation-only follow-up on
+`main`; the release tag remains pinned to the exact release source SHA above.
+No other package, version, tag, release, publish action, release PR, or future
+release was performed.
+
+Final release decision:
+
+```text
+DiffSentry v0.1.0
+
+ENGINEERING READINESS: PASS
+ARTIFACT READINESS: PASS
+HOSTED CI: PASS
+NPM PUBLICATION: COMPLETE
+REGISTRY CONSUMER VALIDATION: PASS
+GIT TAG: v0.1.0
+GITHUB RELEASE: PUBLISHED
+
+STATUS: RELEASED
+```

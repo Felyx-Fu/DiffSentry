@@ -3,8 +3,8 @@
 Deterministic, local-first verification for code changes, with an emphasis on
 evidence from AI-generated changes.
 
-> DiffSentry v0.1.0 is a release candidate. This README describes the verified
-> source and packed-artifact behavior; npm publication has not occurred.
+> DiffSentry v0.1.0 is released. This README describes the verified source,
+> published npm packages, and released CLI behavior.
 
 ## Problem
 
@@ -66,14 +66,19 @@ modify the checkout or require a global install.
 For a full source quality gate, run `pnpm lint`, `pnpm typecheck`, `pnpm test`,
 and `pnpm build` after the fixture check.
 
-Planned npm command for v0.1.0 (publication not performed):
+The published npm CLI can be used directly:
 
 ```bash
-npx @felyx-fu/diffsentry check
+npx @felyx-fu/diffsentry@0.1.0 --version
+npx @felyx-fu/diffsentry@0.1.0 check --format json --ci
 ```
 
-The package is a release candidate and is not yet available from npm. The
-source checkout and packed-artifact validation can be used before publication.
+The second command returns exit code `2` when the checked change receives the
+expected `FAIL` verdict. The v0.1.0 public package set is available from npm:
+`@felyx-fu/diffsentry`, `@felyx-fu/diffsentry-contracts`,
+`@felyx-fu/diffsentry-core`, `@felyx-fu/diffsentry-runtime-node`,
+`@felyx-fu/diffsentry-rules`, `@felyx-fu/diffsentry-config`, and
+`@felyx-fu/diffsentry-report`.
 
 ## Features
 

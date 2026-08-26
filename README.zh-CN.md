@@ -2,8 +2,8 @@
 
 面向代码变更的确定性、本地优先验证，重点关注 AI 生成变更的证据。
 
-> DiffSentry v0.1.0 当前是 release candidate。本 README 描述已经验证的源码
-> 和打包产物行为；npm 尚未发布。
+> DiffSentry v0.1.0 已发布。本 README 描述已经验证的源码、已发布的 npm
+> packages 以及已发布的 CLI 行为。
 
 ## 要解决的问题
 
@@ -51,14 +51,18 @@ pnpm install --frozen-lockfile && pnpm exec vitest run tests/e2e/cli-fixture.tes
 
 如需运行完整源码质量门，请在 fixture 检查之后执行 `pnpm lint`、`pnpm typecheck`、`pnpm test` 和 `pnpm build`。
 
-v0.1.0 计划使用的 npm 命令（尚未发布）：
+已发布的 npm CLI 可以直接使用：
 
 ```bash
-npx @felyx-fu/diffsentry check
+npx @felyx-fu/diffsentry@0.1.0 --version
+npx @felyx-fu/diffsentry@0.1.0 check --format json --ci
 ```
 
-该 package 目前仍是 release candidate，尚不能从 npm 安装。发布前可以使用
-源码 checkout 和已验证的打包产物进行验证。
+第二条命令在被检查的变更得到预期 `FAIL` 裁决时返回退出码 `2`。v0.1.0
+的七个公共 package 已经可以从 npm 安装：`@felyx-fu/diffsentry`、
+`@felyx-fu/diffsentry-contracts`、`@felyx-fu/diffsentry-core`、
+`@felyx-fu/diffsentry-runtime-node`、`@felyx-fu/diffsentry-rules`、
+`@felyx-fu/diffsentry-config` 和 `@felyx-fu/diffsentry-report`。
 
 ## 功能
 
