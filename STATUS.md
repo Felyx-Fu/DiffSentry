@@ -5416,14 +5416,14 @@ npm and release boundaries:
 
 This file is updated by Codex after every completed or blocked task.
 
-### RC-CLI-001 — Complete the existing v0.1 CLI executable integration
+### RC-CLI-001 — DONE
 
 Review date: `2026-08-26`
 
 Authoritative remediation decision:
-- RC-CLI-001 is a restricted completion of the already-approved v0.1 CLI
-  executable integration. It is not a new command, rule, scoring model,
-  network feature, LLM feature, architecture change, or scope expansion.
+- RC-CLI-001 completed the already-approved v0.1 CLI executable integration.
+  It added no new command, rule, scoring model, network feature, LLM feature,
+  architecture change, or scope expansion.
 - The exact prior acceptance gap is recorded here as required:
   “Final packed consumer audit discovered that the P5 executable integration acceptance was not actually satisfied.”
 - The gap was in existing AG-508/package-local CLI logic: the lower-level
@@ -5432,14 +5432,15 @@ Authoritative remediation decision:
   and manually assembled a report rather than the executable. AG-523's
   one-command verification gap therefore remained real despite the historical
   P5 completion record.
-- This remediation preserves the existing core-first architecture, security
+- The remediation preserves the existing core-first architecture, security
   boundaries, deterministic Risk Model, no-network/no-LLM policy, and all
-  publication boundaries.
+  publication boundaries. It is completion of the existing integration, not
+  scope expansion.
 
-Implementation in progress:
-- `diffsentry check` now dispatches through repository detection, Git
-  selection, existing project/change/verification/rule flow, existing risk and
-  verdict calculation, report rendering, and the existing exit mapping.
+Implemented behavior:
+- `diffsentry check` dispatches through repository detection, Git selection,
+  existing project/change/verification/rule flow, existing risk and verdict
+  calculation, report rendering, and the existing exit mapping.
 - `diffsentry init` delegates to the existing no-overwrite initializer;
   `diffsentry explain <rule-id>` delegates to existing built-in rule metadata.
   Help/version remain stable, supported check options are parsed with clear
@@ -5452,7 +5453,7 @@ Implementation in progress:
   evidence, empty stderr, and process exit `2`. It also verifies explicit
   `--config` can disable that finding and produce `PASS`/`0`.
 
-Local validation before hosted evidence:
+Local validation:
 - `pnpm install --frozen-lockfile`: PASS — lockfile unchanged.
 - `pnpm lint`: PASS — Biome checked 253 files.
 - `pnpm typecheck`: PASS — all 8 configured package tasks passed.
@@ -5466,29 +5467,54 @@ Local validation before hosted evidence:
 - The current development host is Node `v25.9.0`, outside the unchanged
   `>=24 <25` policy; this is not supported-runtime evidence.
 
-Artifact and consumer validation:
-- Fresh v5 artifacts are under
-  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-artifacts-20260826-v5`.
-  All seven public tarballs were inspected for allowlisted contents, packed
-  metadata, root exports, declarations, CLI bin mapping, and materialized
-  internal dependency ranges. No `workspace:` dependency remained; no
-  `src`, test source, fixtures, coverage, or development TypeScript config
-  entered the tarballs.
-- Fresh external consumer v3 is under
-  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-consumer-20260826-v3`.
-  All seven packed artifacts installed with npm; representative ESM roots,
-  strict TypeScript declarations, risk/rule APIs, and the packed CLI passed.
-  Packed executable `help`, `version`, and secret-fixture `check` passed with
-  the expected nonzero verdict exit; `npm exec --offline --no -- diffsentry
-  --help` also passed through the packed bin mapping.
+Fresh packed-artifact and external-consumer validation:
+- Fresh v6 artifacts are under
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-artifacts-20260826-v6`.
+  All seven public tarballs passed file-list and packed-manifest inspection:
+  allowlisted contents only, canonical metadata, ESM root exports, present
+  declarations, CLI bin mapping, and materialized internal dependency ranges.
+  No `workspace:` dependency remained; no `src`, test source, fixtures,
+  coverage, or development TypeScript config entered the tarballs.
+- Fresh external consumer v4 is under
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-consumer-20260826-v4`.
+  All seven packed artifacts installed with npm and `npm ls --all --omit=dev`
+  resolved the graph. Representative ESM roots, strict TypeScript
+  declarations, risk/rule APIs, and the packed CLI passed. Packed executable
+  `help`, `version`, and secret-fixture `check` passed with the expected
+  nonzero verdict exit; `npm exec --offline --no -- diffsentry --help` also
+  passed through the packed bin mapping.
 
-Hosted evidence state:
-- A fresh three-platform Node 24 hosted run is still required for the final
-  RC after this source revision. Previous AG-719/AG-720 runs are historical
-  and are not reused for RC-CLI-001 completion.
+Fresh hosted evidence:
+- Canonical repository: `https://github.com/Felyx-Fu/DiffSentry`
+- Branch: `main`
+- Workflow: `CI`
+- Tested commit: `334776af180913e370d83dd78a6d8b76ae2e153b`
+- Run: `32947136056` —
+  [GitHub Actions run](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32947136056)
+- `ubuntu-latest`: PASS — Node `v24.19.0`, job
+  [98110205676](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32947136056/job/98110205676)
+- `windows-latest`: PASS — Node `v24.19.0`, job
+  [98110205663](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32947136056/job/98110205663)
+- `macos-latest`: PASS — Node `v24.18.0`, job
+  [98110205509](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32947136056/job/98110205509)
+- Every hosted job passed the configured frozen-lockfile install, lint,
+  typecheck, test, and build steps. This run had no platform failure to
+  remediate. Architecture validation and the package-boundary command are not
+  configured in the current workflow; architecture passed locally and the
+  existing package-boundary command remains the explicit deferred placeholder.
+
+Decision:
+
+```text
+DiffSentry v0.1.0
+ENGINEERING READINESS: PASS
+PUBLICATION READINESS: READY FOR FINAL REVIEW
+PUBLICATION: NOT AUTHORIZED / NOT PERFORMED
+```
 
 Release boundary:
-- Until the fresh hosted matrix and final artifact rerun are recorded, the
-  final RC remains blocked. No npm publish, Changesets publish, NPM_TOKEN use,
-  tag, GitHub Release, release workflow, release PR, Marketplace release, or
-  `RELEASED`/release-ready claim was made.
+- AG-718 and AG-719 remain DONE. RC-CLI-001 is DONE. The final release
+  review may now inspect the evidence above; no release action is implied.
+- No npm publish, Changesets publish, NPM_TOKEN use, tag, GitHub Release,
+  release workflow, release PR, Marketplace release, or `RELEASED` claim was
+  made. Stop and wait for the separately authorized Final Release Review #2.
