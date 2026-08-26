@@ -43,7 +43,8 @@ authorized Changesets publish step runs. The workflow preserves
 Before the publish action, the workflow checks that the available npm CLI is
 at least `11.5.1`, the current npm Trusted Publishing minimum. It does not
 install or upgrade an unrelated dependency; a runner that does not satisfy the
-minimum stops before publication.
+minimum stops before publication. This minimum follows the [npm Trusted
+Publishing documentation](https://docs.npmjs.com/trusted-publishers/).
 
 ## Token transition
 

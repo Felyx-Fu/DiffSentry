@@ -5662,4 +5662,25 @@ Validation boundary:
 - These local gates ran on Node `v25.9.0`, outside the unchanged `>=24 <25`
   policy; the release workflow remains pinned to Node 24 and its hosted npm
   version gate is the relevant publication-environment check.
-- Hosted CI evidence will be recorded after the hardening commit is pushed.
+
+Hosted CI evidence:
+- Canonical repository: `https://github.com/Felyx-Fu/DiffSentry`
+- Tested commit: `896dc52d7cb0e6d119fd08f6160d6899941c2415`
+- Workflow: `CI`
+- Run: `32956743624`
+  ([GitHub Actions run](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32956743624))
+- Node version: Node 24 as configured by the hosted CI workflow on all three
+  jobs.
+- `ubuntu-latest`: PASS — job `98139956329`
+  ([job evidence](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32956743624/job/98139956329))
+- `windows-latest`: PASS — job `98139956552`
+  ([job evidence](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32956743624/job/98139956552))
+- `macos-latest`: PASS — job `98139956570`
+  ([job evidence](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32956743624/job/98139956570))
+- All three jobs passed frozen-lockfile install, lint, typecheck, test, and
+  build. The CI workflow does not configure architecture or package-boundary
+  steps; no such hosted validation is claimed here.
+- No cross-platform failure was exposed by this hardening change, so no
+  source-level remediation was required.
+- The `Release` workflow was not dispatched for this commit; no npm publish,
+  package version, tag, or GitHub Release was created.
