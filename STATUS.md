@@ -5325,7 +5325,7 @@ Release boundary:
   requires separate explicit user authorization.
 - AG-721 is complete. Stop here and wait for that separate authorization.
 
-### DiffSentry namespace migration — IN PROGRESS
+### DiffSentry namespace migration — FINAL RC BLOCKED
 
 Review date: `2026-08-26`
 
@@ -5355,25 +5355,47 @@ Local migration validation:
   projects, architecture validation, and the existing package-boundary
   placeholder all passed on the local Node `v25.9.0` host; the required engine
   policy remains `>=24 <25`.
+- Fresh hosted DiffSentry CI passed on the same source revision
+  `77a03750c933daf62e044c6c3a4d58fe041883a5`:
+  [workflow run 32942313365](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32942313365).
+  The workflow was `CI`; all three jobs passed every configured quality step:
+  frozen-lockfile install, lint, typecheck, test, and build.
+  `ubuntu-latest` Node `v24.19.0` passed in job
+  [98095652724](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32942313365/job/98095652724),
+  `windows-latest` Node `v24.19.0` passed in job
+  [98095652798](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32942313365/job/98095652798),
+  and `macos-latest` Node `v24.18.0` passed in job
+  [98095652512](https://github.com/Felyx-Fu/DiffSentry/actions/runs/32942313365/job/98095652512).
 - The migration regression suite passed: package names and metadata, internal
   dependency names, ESM exports, CLI bin/version identity, private Action
   metadata, current product text, and absence of old production references.
 - Fresh DiffSentry package artifacts were generated under
-  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-artifacts-20260826-v3`.
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-artifacts-20260826-v4`.
   All seven tarballs passed file-list, manifest, ESM entry, declaration,
   internal dependency materialization, and no-old-identity checks. The private
   Action bundle was rebuilt and loaded with its expected exports; no bare old
   or new workspace imports remain in the bundle.
 - Fresh packed consumer:
-  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-consumer-20260826-v1`.
+  `C:\Users\fukan\AppData\Local\Temp\diffsentry-pack-consumer-20260826-v2`.
   All seven new tarballs installed successfully, `npm ls` resolved the graph,
   representative ESM imports passed, and strict TypeScript declaration
   resolution passed. Packed `diffsentry --help` and `--version` passed, with
   version `0.1.0`.
 - The existing top-level CLI dispatcher still rejects `diffsentry check` with
   its usage error, exactly as the pre-migration `agentguard check` path did;
-  the migration did not add or remove CLI semantics. This remains visible and
-  is not claimed as a successful full executable check flow.
+  the migration did not add or remove CLI semantics. The packed consumer
+  smoke therefore exited `1` with `Unknown command or option. Use
+  \`diffsentry --help\`.`, and this is not claimed as a successful full
+  executable check flow.
+
+Final RC decision:
+- `BLOCKED` — the authoritative migration protocol lists `diffsentry check`
+  as a required smoke command, but the existing top-level dispatcher does not
+  implement that flow. Implementing it would be a CLI behavior/integration
+  change beyond the authorized name-only migration and the previously
+  recorded deferred AG-517 integration boundary. No dispatcher implementation
+  was added, no gate was weakened, and the exact failure remains visible for a
+  separately authorized CLI integration task.
 
 npm and release boundaries:
 - Read-only npm preflight used `https://registry.npmjs.org/`. All seven new
@@ -5386,7 +5408,9 @@ npm and release boundaries:
   records that this namespace migration does not bump package versions.
 - No npm publish, Changesets publish, NPM_TOKEN use, tag, GitHub Release,
   release workflow execution, release PR, or formal `RELEASED` claim has been
-  made. Fresh hosted DiffSentry CI evidence is still pending.
+  made. Fresh hosted DiffSentry CI is PASS, but the final RC remains BLOCKED
+  by the required top-level CLI `check` smoke limitation; npm auth remains an
+  independently recorded preflight limitation.
 
 ## Notes
 
