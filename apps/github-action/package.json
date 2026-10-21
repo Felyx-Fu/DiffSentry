@@ -34,6 +34,6 @@
     "@felyx-fu/diffsentry-runtime-node": "workspace:*"
   },
   "devDependencies": {
-    "vite": "8.2.2"
+    "vite": "8.2.4"
   }
 }
